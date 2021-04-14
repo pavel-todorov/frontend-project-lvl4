@@ -3,6 +3,7 @@ import { Form, FormGroup, FormLabel, FormControl, Button } from 'react-bootstrap
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return state;
@@ -10,6 +11,7 @@ const mapStateToProps = (state) => {
 
 const Login = (props) => {
   const { i18nFunction } = props;
+  const history = useHistory();
 
   const validationSchema = yup.object().shape({
     login: yup.string()
@@ -21,16 +23,10 @@ const Login = (props) => {
       .required(),
   });
 
-/*  const formik = useFormik({
-    initialValues: {
-      login: '',
-      password: '',
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });*/
+  const onSubmit = (values) => {
+    console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
+    history.push('/');
+  };
 
   return (
     <React.Fragment>
@@ -38,9 +34,7 @@ const Login = (props) => {
       <Formik 
         initialValues={{ login:"", password:""}}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`)
-        }}>
+        onSubmit={onSubmit}>
         {({values,
           errors,
           touched,
