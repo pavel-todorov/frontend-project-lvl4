@@ -27,7 +27,7 @@ class Channels extends React.Component {
     console.log(`Channels::render: channels = ${JSON.stringify(data)}`);
     return (
       <React.Fragment>
-        <div>Channels</div>
+        <h5>Channels</h5>
         {this.renderChannels(data)}
       </React.Fragment>
     );

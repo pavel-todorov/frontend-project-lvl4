@@ -1,5 +1,6 @@
 {
-  "name": "frontend_l4_chat_project",
+  "name": "@hexlet/code",
+  "module": "@hexlet/code",
   "version": "0.0.1",
   "description": "",
   "main": "server/index.js",
@@ -43,6 +44,7 @@
     "fastify-sensible": "^3.1.1",
     "fastify-static": "^4.0.1",
     "formik": "^2.2.6",
+    "i18next": "^20.2.1",
     "jquery": "^3.6.0",
     "js-cookie": "^2.2.1",
     "lodash": "^4.17.21",
@@ -53,9 +55,11 @@
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
+    "react-router-dom": "^5.2.0",
     "redux-actions": "^2.6.5",
     "regenerator-runtime": "^0.13.7",
-    "socket.io": "^4.0.1"
+    "socket.io": "^4.0.1",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
