@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 
 import { channelsRequest } from './actions.js';
 
-const defaultState = {};
+const defaultState = [];
 
 const channelsRequestHandler = (state, data) => {
   return state;

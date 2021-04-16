@@ -23,12 +23,12 @@ class Channels extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
-    console.log(`Channels::render: channels = ${JSON.stringify(data)}`);
+    console.log(`Channels::render: props = ${JSON.stringify(this.props)}`);
+    const { channels } = this.props;
     return (
       <React.Fragment>
         <h5>Channels</h5>
-        {this.renderChannels(data)}
+        {this.renderChannels(channels)}
       </React.Fragment>
     );
   }

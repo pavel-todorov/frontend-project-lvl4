@@ -10,13 +10,12 @@ const mapStateToProps = (state) => {
 
 class App extends React.Component {
   render() {
-    const { data, i18nFunction } = this.props;
-    console.log(`App::render: data=${JSON.stringify(data)}`);
+    console.log(`App::render: props=${JSON.stringify(this.props)}`);
     return (
       <React.Fragment>
         <Row>
           <Col>
-            <Channels data={data.channels} />
+            <Channels />
           </Col>
         </Row>
       </React.Fragment>

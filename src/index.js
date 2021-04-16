@@ -41,7 +41,7 @@ const init = async () => initTranslations().then((i18nFunction) => {
           <Header i18nFunction={i18nFunction}/>
           <Switch>
             <Route exact path="/">
-              <App data={{ channels: [] }} i18nFunction={i18nFunction} />
+              <App i18nFunction={i18nFunction} />
             </Route>
             <Route path="/login">
               <Login i18nFunction={i18nFunction} />
