@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import channelsReducer from './features/channels/redusers';
+import channelsReducers from './features/channels/redusers.js';
 
 export default combineReducers({
-  channels: channelsReducer,
+  channels: channelsReducers,
 });

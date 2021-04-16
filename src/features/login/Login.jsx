@@ -4,6 +4,8 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
+import routes from '../../routes'
 
 const mapStateToProps = (state) => {
   return state;
@@ -19,12 +21,25 @@ const Login = (props) => {
       .max(20, i18nFunction('help_login'))
       .required(),
     password: yup.string()
-      .min(6, i18nFunction('help_password'))
+      .min(5, i18nFunction('help_password'))
       .required(),
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
+
+    const res = await axios({
+      url: '/api/v1/login',
+      method: 'post',
+      data: { username: values.login, password: values.password },
+    });
+
+    // console.log(`Request result: ${JSON.stringify(res)}`);
+    if (res.status !== 200) {
+      console.log(`Login failed, status = ${res.status}`);
+      return;
+    }
+
     history.push('/');
   };
 
@@ -67,7 +82,7 @@ const Login = (props) => {
                   isInvalid={touched.password && errors.password} />
                 <div style={{color: "red"}}>{errors.password}</div>
               </FormGroup>
-              <Button variant="primary" type="submit" onClick={handleSubmit}>
+              <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
                 {i18nFunction('action_login')}
               </Button>
             </Form>

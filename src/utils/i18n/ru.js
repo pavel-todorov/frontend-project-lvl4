@@ -18,4 +18,4 @@ const translation = {
   warn_password_should_be_the_same: 'Пароли должны совпадать',
 };
 
-module.exports = translation;
+export default translation;

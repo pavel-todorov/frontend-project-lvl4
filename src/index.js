@@ -1,7 +1,7 @@
 // @ts-check
 
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+import 'core-js/stable/index.js';
+import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
@@ -9,22 +9,21 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducers from './reducers';
+import reducers from './reducers.js';
 
-import { initTranslations } from './utils/i18n/translations';
+import { initTranslations } from './utils/i18n/translations.js';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  useLocation
+  Route
 } from "react-router-dom";
 
-import gon from 'gon';
+// import gon from 'gon';
 
-import App from './App'
-import NotFound from './features/not-found/NotFound'
-import Header from './features/header/Header';
-import Login from './features/login/Login'
+import App from './App.jsx'
+import NotFound from './features/not-found/NotFound.jsx'
+import Header from './features/header/Header.jsx';
+import Login from './features/login/Login.jsx'
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
@@ -42,7 +41,7 @@ const init = async () => initTranslations().then((i18nFunction) => {
           <Header i18nFunction={i18nFunction}/>
           <Switch>
             <Route exact path="/">
-              <App data={gon} i18nFunction={i18nFunction} />
+              <App data={{ channels: [] }} i18nFunction={i18nFunction} />
             </Route>
             <Route path="/login">
               <Login i18nFunction={i18nFunction} />

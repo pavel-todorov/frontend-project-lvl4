@@ -1,6 +1,6 @@
 /* eslint functional/no-let: ["off"] */
 import i18next from 'i18next';
-import ruTranslation from './ru';
+import ruTranslation from './ru.js';
 
 const i18n = i18next.default || i18next;
 

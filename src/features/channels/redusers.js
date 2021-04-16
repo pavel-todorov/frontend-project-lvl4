@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import { channelsRequest } from './actions';
+import { channelsRequest } from './actions.js';
 
 const defaultState = {};
 
