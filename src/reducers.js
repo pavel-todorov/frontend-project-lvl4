@@ -7,8 +7,9 @@ const defaultState = {
   isLoggedIn: false,
 };
 
-const setLoggedStateHandler = (state, data) => {
-  return state;
+const setLoggedStateHandler = (state, { payload: { isLoggedIn }}) => {
+  console.log(`App::reducers::setLoggedStateHandler(state = ${JSON.stringify(state)}, isLoggedIn = ${isLoggedIn})`);
+  return { isLoggedIn };
 };
 
 const handlers = {

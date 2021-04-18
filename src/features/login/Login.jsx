@@ -5,14 +5,18 @@ import * as yup from 'yup';
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import routes from '../../routes'
+import { setLoggedState } from '../../actions.js'
 
 const mapStateToProps = (state) => {
   return state;
 }
 
+const actionCreators = {
+  setLoggedState,
+};
+
 const Login = (props) => {
-  const { i18nFunction } = props;
+  const { i18nFunction, setLoggedState } = props;
   const history = useHistory();
 
   const validationSchema = yup.object().shape({
@@ -34,11 +38,14 @@ const Login = (props) => {
       data: { username: values.login, password: values.password },
     });
 
-    // console.log(`Request result: ${JSON.stringify(res)}`);
+    console.log(`Request result: ${JSON.stringify(res)}`);
     if (res.status !== 200) {
       console.log(`Login failed, status = ${res.status}`);
       return;
     }
+
+    window.localStorage.setItem('authInfo', res.data);
+    setLoggedState({ isLoggedIn: true });
 
     history.push('/');
   };
@@ -92,4 +99,4 @@ const Login = (props) => {
   ); 
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, actionCreators)(Login);
