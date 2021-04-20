@@ -1,23 +1,29 @@
 import React from 'react';
-import { Form, FormGroup, FormLabel, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { setLoggedState } from '../../actions.js'
+import { setModalState } from './actions.js'
 
 const mapStateToProps = (state) => {
-  return state;
+  const { login } = state;
+  return login;
 }
 
 const actionCreators = {
   setLoggedState,
+  setModalState,
 };
 
 const Login = (props) => {
-  const { i18nFunction, setLoggedState } = props;
+  console.log(`Login(${JSON.stringify(props)}): ENTER`);
+
+  const { i18nFunction, setLoggedState, setModalState, showModal, modalMessage } = props;
   const history = useHistory();
+  console.log(`Login: showModal=${showModal}, modalMessage=${modalMessage}`);
 
   const validationSchema = yup.object().shape({
     login: yup.string()
@@ -32,15 +38,22 @@ const Login = (props) => {
   const onSubmit = async (values) => {
     console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
 
-    const res = await axios({
-      url: '/api/v1/login',
-      method: 'post',
-      data: { username: values.login, password: values.password },
-    });
+    let res;
+    try {
+      res = await axios({
+        url: '/api/v1/login',
+        method: 'post',
+        data: { username: values.login, password: values.password },
+      });
+    } catch(err) {
+      console.log(`Login failed. ${err}`);
+      res = err.response;
+    }
 
     console.log(`Request result: ${JSON.stringify(res)}`);
     if (res.status !== 200) {
       console.log(`Login failed, status = ${res.status}`);
+      setModalState({ message: `Login failed, status = ${res.status}`, showModal: true });
       return;
     }
 
@@ -48,6 +61,18 @@ const Login = (props) => {
     setLoggedState({ isLoggedIn: true });
 
     history.push('/');
+  };
+
+  const renderModal = (showModal, modalMessage, setModalState) => {
+    console.log(`Login::renderModal(${showModal}, ${modalMessage})`);
+    const onHide = () => setModalState({ showModal: false });
+
+    return (
+      <Modal show={showModal} onHide={onHide}>
+        <Modal.Header closeButton>Info</Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+      </Modal>
+    );
   };
 
   return (
@@ -95,6 +120,7 @@ const Login = (props) => {
             </Form>
           )}
       </Formik>
+      {renderModal(showModal, modalMessage, setModalState)}
     </React.Fragment>
   ); 
 }

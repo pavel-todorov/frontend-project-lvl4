@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Modal, Button } from 'react-bootstrap';
 import Channels from './features/channels/Channels';
 
 const mapStateToProps = (state) => {
