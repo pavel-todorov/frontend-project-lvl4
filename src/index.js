@@ -9,6 +9,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { useHistory, Redirect } from "react-router-dom";
 import reducers from './reducers.js';
 
 import { initTranslations } from './utils/i18n/translations.js';
@@ -34,15 +35,30 @@ document.documentElement.lang = 'ru';
 const store = createStore(reducers);
 
 const init = async () => initTranslations().then((i18nFunction) => {
+  const renderApp = () => {
+    // const authInfo = window.localStorage.getItem('authInfo');
+    // console.log(`Init::renderApp: authInfo=${JSON.stringify(authInfo)}`);
+    // if (authInfo === null) {
+    //   return (
+    //     <Route exact path="/">
+    //       <Redirect to="/login" />
+    //     </Route>
+    //   );
+    // }
+    return (
+      <Route exact path="/">
+        <App i18nFunction={i18nFunction} />
+      </Route>
+    );
+  }
+
   render(
     <Provider store={store}>
       <Router>
         <div>
           <Header i18nFunction={i18nFunction}/>
           <Switch>
-            <Route exact path="/">
-              <App i18nFunction={i18nFunction} />
-            </Route>
+            {renderApp()}
             <Route path="/login">
               <Login i18nFunction={i18nFunction} />
             </Route>
