@@ -1,12 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-const mapStateToProps = (state) => {
-  return state;
-};
+// import { connect } from 'react-redux';
 
-class Channels extends React.Component {
-  renderChannels(channels) {
+// const mapStateToProps = (state) => {
+//   return state;
+// };
+
+const Channels = () => {
+  const renderChannels = (channels) => {
     console.log(`Channels::renderChannels(${JSON.stringify(channels)})`);
     if (channels.length === 0) {
       return null;
@@ -22,16 +24,15 @@ class Channels extends React.Component {
     );
   }
 
-  render() {
-    console.log(`Channels::render: props = ${JSON.stringify(this.props)}`);
-    const { channels } = this.props;
-    return (
-      <React.Fragment>
-        <h5>Channels</h5>
-        {this.renderChannels(channels)}
-      </React.Fragment>
-    );
-  }
-}
+  const channels = useSelector((state) => state.channels);
+  console.log(`Channels::render: props = ${JSON.stringify(channels)}`);
+  // const { channels } = this.props;
+  return (
+    <React.Fragment>
+      <h5>Channels</h5>
+      {renderChannels(channels)}
+    </React.Fragment>
+  );
+};
 
-export default connect(mapStateToProps)(Channels);
+export default Channels;

@@ -1,29 +1,24 @@
 import React from 'react';
+import axios from 'axios';
+import * as yup from 'yup';
 import { Form, FormGroup, FormLabel, FormControl, Button, Modal } from 'react-bootstrap';
 import { Formik } from 'formik';
-import * as yup from 'yup';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
-import { setLoggedState } from '../../actions.js'
-import { setModalState } from './actions.js'
-
-const mapStateToProps = (state) => {
-  const { login } = state;
-  return login;
-}
-
-const actionCreators = {
-  setLoggedState,
-  setModalState,
-};
+import { setModalState } from './slice.js';
+import { setLoggedState } from '../../slice.js';
 
 const Login = (props) => {
-  console.log(`Login(${JSON.stringify(props)}): ENTER`);
+  const { showModal, modalMessage } = useSelector((state) => {
+    console.log(`Login: ENTER with state ${JSON.stringify(state)}`);
+    return state.login
+  });
 
-  const { i18nFunction, setLoggedState, setModalState, showModal, modalMessage } = props;
+  const { i18nFunction } = props;
+  // console.log(`Login: ${typeof i18nFunction}`);
   const history = useHistory();
-  console.log(`Login: showModal=${showModal}, modalMessage=${modalMessage}`);
+  const dispatch = useDispatch();
+  // console.log(`Login: showModal=${showModal}, modalMessage=${modalMessage}`);
 
   const validationSchema = yup.object().shape({
     login: yup.string()
@@ -36,7 +31,7 @@ const Login = (props) => {
   });
 
   const onSubmit = async (values) => {
-    console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
+    // console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
 
     let res;
     try {
@@ -46,26 +41,26 @@ const Login = (props) => {
         data: { username: values.login, password: values.password },
       });
     } catch(err) {
-      console.log(`Login failed. ${err}`);
+      // console.log(`Login failed. ${err}`);
       res = err.response;
     }
 
     console.log(`Request result: ${JSON.stringify(res)}`);
     if (res.status !== 200) {
       console.log(`Login failed, status = ${res.status}`);
-      setModalState({ message: `Login failed, status = ${res.status}`, showModal: true });
+      dispatch(setModalState({ message: `Login failed, status = ${res.status}`, showModal: true }));
       return;
     }
 
     window.localStorage.setItem('authInfo', res.data);
-    setLoggedState({ isLoggedIn: true });
+    dispatch(setLoggedState({ isLoggedIn: true }));
 
     history.push('/');
   };
 
   const renderModal = (showModal, modalMessage, setModalState) => {
     console.log(`Login::renderModal(${showModal}, ${modalMessage})`);
-    const onHide = () => setModalState({ showModal: false });
+    const onHide = () => dispatch(setModalState({ showModal: false }));
 
     return (
       <Modal show={showModal} onHide={onHide}>
@@ -125,4 +120,5 @@ const Login = (props) => {
   ); 
 }
 
-export default connect(mapStateToProps, actionCreators)(Login);
+// export default connect(mapStateToProps, actionCreators)(Login);
+export default Login;

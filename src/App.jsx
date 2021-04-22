@@ -1,31 +1,34 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { Row, Col } from 'react-bootstrap';
 
 import Channels from './features/channels/Channels';
 
-import { setLoggedState } from './actions.js'
+import { setLoggedState } from './slice';
+// import { setLoggedState } from './actions.js'
 
-const mapStateToProps = (state) => {
-  return state.app;
-};
+// const mapStateToProps = (state) => {
+//   return state.app;
+// };
 
-const actionCreators = {
-  setLoggedState,
-};
+// const actionCreators = {
+//   setLoggedState,
+// };
 
-const App  = (props) => {
+const App  = () => {
   const history = useHistory();
-  const { setLoggedState, isLoggedIn } = props;
-  console.log(`App::render: props=${JSON.stringify(props)}`);
+  const dispatch = useDispatch();
+  // const { setLoggedState, isLoggedIn } = props;
+  const isLoggedIn = useSelector((state) => state.app.isLoggedIn);
+  console.log(`App::render: isLoggedIn=${isLoggedIn}`);
   const authInfo = window.localStorage.getItem('authInfo');
   console.log(`App::render: authInfo=${JSON.stringify(authInfo)}`);
   if (authInfo === null) {
     history.push('/login');
   } else if (!isLoggedIn) {
-    setLoggedState({ isLoggedIn: true });
+    dispatch(setLoggedState({ isLoggedIn: true }));
   }
 
   return (
@@ -39,4 +42,5 @@ const App  = (props) => {
   );
 };
 
-export default connect(mapStateToProps, actionCreators)(App);
+// export default connect(mapStateToProps, actionCreators)(App);
+export default App;
