@@ -3,13 +3,18 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import { useSelector, useDispatch } from 'react-redux';
-
-import routes from '../../routes.js'
+import { useHistory } from "react-router-dom";
 import { channelsLoading, channelsReceived } from './slice.js'
 
 const Channels = () => {
   const fetchChannels = async (token, dispatch) => {
     dispatch(channelsLoading());
+    const dataString = window.localStorage.getItem('channels');
+    if (dataString !== null) {
+      const data = JSON.parse(dataString);
+      dispatch(channelsReceived(data))
+      return;
+    }
     let channelsRequestResult;
     try {
       channelsRequestResult = await axios({
@@ -20,9 +25,10 @@ const Channels = () => {
     } catch(err) {
       channelsRequestResult = err.response;
     }
-    console.log(`Channels::response: ${JSON.stringify(channelsRequestResult)}`);
+    console.log(`Channels::fetchChannels: response=${JSON.stringify(channelsRequestResult)}`);
     if (channelsRequestResult.status === 200) {
-      console.log(`Channels: dispatch data: ${JSON.stringify(channelsRequestResult.data)}`);
+      // console.log(`Channels::fetchChannels dispatch data: ${JSON.stringify(channelsRequestResult.data)}`);
+      window.localStorage.setItem('channels', JSON.stringify(channelsRequestResult.data));
       return dispatch(channelsReceived(channelsRequestResult.data));
     }
     return dispatch(channelsReceived([]));
@@ -44,13 +50,19 @@ const Channels = () => {
     );
   };
 
+  const history = useHistory();
   const dispatch = useDispatch();
-  const token = JSON.parse(window.localStorage.getItem('authInfo')).token;
-  // console.log(`Channels: authInfo="${JSON.stringify(window.localStorage.getItem('authInfo'))}"`);
+  const authInfoString = window.localStorage.getItem('authInfo');
+  if (authInfoString === null) {
+    history.push('/login');
+    return null;
+  }
+  const token = JSON.parse(authInfoString).token;
+  const { channels, loading } = useSelector((state) => state.channels);
+  console.log(`Channels: channels=${JSON.stringify(channels)}, loading=${loading}`);
+  // console.log(`Channels: authInfo="${authInfoString}"`);
   fetchChannels(token, dispatch);
 
-  const { channels } = useSelector((state) => state.channels);
-  console.log(`Channels::render: props = ${JSON.stringify(channels)}`);
   return (
     <React.Fragment>
       <h5>Channels</h5>

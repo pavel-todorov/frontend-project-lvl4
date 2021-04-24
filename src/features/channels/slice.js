@@ -16,7 +16,7 @@ export const channelsSlice = createSlice({
     channelsReceived: (state, action) => {
       console.log(`ChannelSlice::channelsReceived: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`);
       if (state.loading === 'pending') {
-        state.loading = 'idle'
+        state.loading = 'done'
         state.channels = action.payload.channels;
       }
     },
