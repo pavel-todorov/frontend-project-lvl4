@@ -52,7 +52,7 @@ const Login = (props) => {
       return;
     }
 
-    window.localStorage.setItem('authInfo', res.data);
+    window.localStorage.setItem('authInfo', JSON.stringify(res.data));
     dispatch(setLoggedState({ isLoggedIn: true }));
 
     history.push('/');
