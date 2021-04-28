@@ -34,8 +34,8 @@ const Channels = () => {
     return dispatch(channelsReceived([]));
   };
 
-  const renderChannels = (channels) => {
-    console.log(`Channels::renderChannels(${JSON.stringify(channels)})`);
+  const renderChannels = (channels, currentChannelId) => {
+    console.log(`Channels::renderChannels(${JSON.stringify(channels)},${currentChannelId})`);
     if (channels.length === 0) {
       return null;
     }
@@ -43,7 +43,10 @@ const Channels = () => {
       <div>
         {
           channels.map((channel) => {
-            return (<div key={_.uniqueId()}>{channel.name}</div>);
+            if (channel.id === currentChannelId)
+              return (<div key={_.uniqueId()}><b>{channel.name}</b></div>);
+            else
+              return (<div key={_.uniqueId()}>{channel.name}</div>);
           })
         }
       </div>
@@ -58,15 +61,15 @@ const Channels = () => {
     return null;
   }
   const token = JSON.parse(authInfoString).token;
-  const { channels, loading } = useSelector((state) => state.channels);
-  console.log(`Channels: channels=${JSON.stringify(channels)}, loading=${loading}`);
+  const { channels, loading, currentChannelId } = useSelector((state) => state.channels);
+  console.log(`Channels: channels=${JSON.stringify(channels)}, loading=${loading}, currentChannelId=${currentChannelId}`);
   // console.log(`Channels: authInfo="${authInfoString}"`);
   fetchChannels(token, dispatch);
 
   return (
     <React.Fragment>
       <h5>Channels</h5>
-      {renderChannels(channels)}
+      {renderChannels(channels, currentChannelId)}
     </React.Fragment>
   );
 };

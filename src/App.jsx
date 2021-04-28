@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Row, Col } from 'react-bootstrap';
 
 import Channels from './features/channels/Channels';
+import Messages from './features/messages/Messages';
 
 import { setLoggedState } from './slice';
 // import { setLoggedState } from './actions.js'
@@ -33,11 +34,14 @@ const App  = () => {
 
   return (
     <React.Fragment>
-      <Row>
-        <Col>
-          <Channels />
-        </Col>
-      </Row>
+        <Row className={"h-100"}>
+          <Col sm={3} md={3} lg={3} xl={3}>
+            <Channels />
+          </Col>
+          <Col sm={9} md={9} lg={9} xl={9}>
+            <Messages />
+          </Col>
+        </Row>
     </React.Fragment>
   );
 };

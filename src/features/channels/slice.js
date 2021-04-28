@@ -18,6 +18,8 @@ export const channelsSlice = createSlice({
       if (state.loading === 'pending') {
         state.loading = 'done'
         state.channels = action.payload.channels;
+        state.messages = action.payload.messages;
+        state.currentChannelId = action.payload.currentChannelId;
       }
     },
   }

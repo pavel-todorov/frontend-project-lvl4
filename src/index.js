@@ -39,7 +39,7 @@ const init = async () => initTranslations().then((i18nFunction) => {
   render(
     <Provider store={store}>
       <Router>
-        <div>
+        <div className={"h-100"}>
           <Header i18nFunction={i18nFunction}/>
           <Switch>
             {renderApp()}
