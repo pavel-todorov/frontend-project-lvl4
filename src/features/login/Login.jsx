@@ -30,7 +30,7 @@ const Login = (props) => {
       .required(),
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, { resetForm }) => {
     // console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
 
     let res;
@@ -54,6 +54,7 @@ const Login = (props) => {
 
     window.localStorage.setItem('authInfo', JSON.stringify(res.data));
     dispatch(setLoggedState({ isLoggedIn: true }));
+    resetForm()
 
     history.push('/');
   };

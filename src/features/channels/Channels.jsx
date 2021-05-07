@@ -4,9 +4,9 @@ import _ from 'lodash';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { channelsLoading, channelsReceived } from './slice.js'
+import { channelsLoading, channelsReceived } from '../../slice.js'
 
-const Channels = () => {
+const Channels = (props) => {
   const fetchChannels = async (token, dispatch) => {
     dispatch(channelsLoading());
     const dataString = window.localStorage.getItem('channels');
@@ -61,8 +61,8 @@ const Channels = () => {
     return null;
   }
   const token = JSON.parse(authInfoString).token;
-  const { channels, loading, currentChannelId } = useSelector((state) => state.channels);
-  console.log(`Channels: channels=${JSON.stringify(channels)}, loading=${loading}, currentChannelId=${currentChannelId}`);
+  const { channels, channelsLoadingState, currentChannelId } = props; //useSelector((state) => state.channels);
+  console.log(`Channels: channels=${JSON.stringify(channels)}, loading=${channelsLoadingState}, currentChannelId=${currentChannelId}`);
   // console.log(`Channels: authInfo="${authInfoString}"`);
   fetchChannels(token, dispatch);
 
