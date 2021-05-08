@@ -39,7 +39,7 @@ const Messages = (props) => {
     console.log(`Messages::onSubmit: newMessage=${JSON.stringify(newMessage)}`);
     socket.emit('newMessage', newMessage, (data) => {
       console.log(`Messages::onSubmit::response: ${JSON.stringify(data)}`);
-      resetForm();
+      resetForm({});
       dispatch(messageSent());
    });
   };
@@ -62,6 +62,7 @@ const Messages = (props) => {
             <Col sm="10" md="10" xl="10" lg="10">
               <FormControl
                 name="message"
+                value={values.message || ''}
                 className="mb-2"
                 id="inlineFormInput"
                 onChange={handleChange}
