@@ -34,6 +34,11 @@ const Channels = (props) => {
     return dispatch(channelsReceived([]));
   };
 
+  const handleChannelPress = (id) => (e) => {
+    e.preventDefault();
+    console.log(`Channels::handleChannelPress(${id}): ENTER`);
+  };
+
   const renderChannels = (channels, currentChannelId) => {
     console.log(`Channels::renderChannels(${JSON.stringify(channels)},${currentChannelId})`);
     if (channels.length === 0) {
@@ -44,9 +49,9 @@ const Channels = (props) => {
         {
           channels.map((channel) => {
             if (channel.id === currentChannelId)
-              return (<div key={_.uniqueId()}><b>{channel.name}</b></div>);
+              return (<div key={channel.id}><b>{channel.name}</b></div>);
             else
-              return (<div key={_.uniqueId()}>{channel.name}</div>);
+              return (<a key={channel.id} className="link-secondary" onClick={handleChannelPress(channel.id)}>{channel.name}</a>);
           })
         }
       </div>
