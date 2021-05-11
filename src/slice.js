@@ -27,6 +27,9 @@ export const appSlice = createSlice({
         state.currentChannelId = action.payload.currentChannelId;
       }
     },
+    setCurrentChannel: (state, action) => {
+      state.currentChannelId = action.payload;
+    },
     newMessage: (state, action) => {
       console.log(`AppSlice::newMessage: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`);
       const message = { ...action.payload, channelId: state.currentChannelId };
@@ -38,6 +41,6 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setLoggedState, channelsLoading, channelsReceived, newMessage } = appSlice.actions
+export const { setLoggedState, channelsLoading, channelsReceived, newMessage, setCurrentChannel } = appSlice.actions
 
 export default appSlice.reducer

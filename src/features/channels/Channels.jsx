@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { channelsLoading, channelsReceived } from '../../slice.js'
+import { channelsLoading, channelsReceived, setCurrentChannel } from '../../slice.js'
 
 const Channels = (props) => {
   const fetchChannels = async (token, dispatch) => {
@@ -37,6 +37,7 @@ const Channels = (props) => {
   const handleChannelPress = (id) => (e) => {
     e.preventDefault();
     console.log(`Channels::handleChannelPress(${id}): ENTER`);
+    dispatch(setCurrentChannel(id));
   };
 
   const renderChannels = (channels, currentChannelId) => {

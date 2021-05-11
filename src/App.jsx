@@ -36,7 +36,10 @@ const App  = () => {
             <Channels channels={channels} channelsLoadingState={channelsLoadingState} currentChannelId={currentChannelId}/>
           </Col>
           <Col sm={9} md={9} lg={9} xl={9}>
-            <Messages socket={socket} messages={messages} currentChannelId={currentChannelId}/>
+            <Messages
+              socket={socket}
+              messages={messages.filter((message) => (message.channelId === currentChannelId))}
+              currentChannelId={currentChannelId}/>
           </Col>
         </Row>
     </React.Fragment>
