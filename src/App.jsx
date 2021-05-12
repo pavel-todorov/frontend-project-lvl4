@@ -33,7 +33,11 @@ const App  = () => {
     <React.Fragment>
         <Row className={"h-100"}>
           <Col sm={3} md={3} lg={3} xl={3}>
-            <Channels channels={channels} channelsLoadingState={channelsLoadingState} currentChannelId={currentChannelId}/>
+            <Channels 
+              socket={socket}
+              channels={channels}
+              channelsLoadingState={channelsLoadingState}
+              currentChannelId={currentChannelId}/>
           </Col>
           <Col sm={9} md={9} lg={9} xl={9}>
             <Messages

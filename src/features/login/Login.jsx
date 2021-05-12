@@ -95,7 +95,8 @@ const Login = (props) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.login} 
-                  isInvalid={touched.login && errors.login} />
+                  isInvalid={touched.login && errors.login} 
+                  id="loginLogin"/>
                 <div style={{color: "red"}}>{errors.login}</div>
               </FormGroup>
               <FormGroup>
@@ -107,7 +108,8 @@ const Login = (props) => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
-                  isInvalid={touched.password && errors.password} />
+                  isInvalid={touched.password && errors.password} 
+                  id="loginPassword"/>
                 <div style={{color: "red"}}>{errors.password}</div>
               </FormGroup>
               <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
