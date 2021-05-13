@@ -4,9 +4,9 @@ import _ from 'lodash';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { channelsLoading, channelsReceived, setCurrentChannel, newChannel } from '../../slice.js'
+import { channelsLoading, channelsReceived, setCurrentChannel, newChannel, renameChannel } from '../../slice.js'
 import { showAskNameModal } from './slice.js'
-import { Form, Row, Col, Modal, Button, FormControl } from 'react-bootstrap';
+import { Form, Row, Col, Modal, Button, FormControl, SplitButton, Dropdown, Container } from 'react-bootstrap';
 import { Formik } from 'formik';
 
 const Channels = (props) => {
@@ -54,22 +54,57 @@ const Channels = (props) => {
     dispatch(setCurrentChannel(id));
   };
 
+  const handleDropdownSelect = (channelId) => (e) => {
+    console.log(`Channels::handleDropdownSelect(${channelId}, ${e}): ENTER`);
+    const behaviorCase = e.toLowerCase();
+    const behavior = {
+      delete: () => {
+        //@todo
+      },
+      rename: () => {
+        dispatch(showAskNameModal({ question: 'Enter new channel name', isShown: true, tag: behaviorCase }));
+      },
+    };
+    if (behavior[behaviorCase] !== undefined) {
+      behavior[behaviorCase]();
+    }
+  };
+
   const renderChannels = (channels, currentChannelId) => {
     console.log(`Channels::renderChannels(${JSON.stringify(channels)},${currentChannelId})`);
     if (channels.length === 0) {
       return null;
     }
     return (
-      <div>
+      <Container
+        fluid={true}>
         {
           channels.map((channel) => {
             if (channel.id === currentChannelId)
-              return (<p key={channel.id}><b>{channel.name}</b></p>);
+              return (
+                <SplitButton
+                  style={{ width: '100%', margin: '10px 0px'}}
+                  key={channel.id}
+                  variant="primary"
+                  title={channel.name}
+                  onSelect={handleDropdownSelect(channel.id)}>
+                    {channel.removable ? (<Dropdown.Item key="1" eventKey="Delete" >Delete</Dropdown.Item>) : null}
+                    <Dropdown.Item key="2" eventKey="Rename">Rename</Dropdown.Item>
+                </SplitButton>
+              );
             else
-              return (<p><a key={channel.id} className="link-secondary" onClick={handleChannelPress(channel.id)}>{channel.name}</a></p>);
+              return (
+                <Button
+                  block
+                  variant="light"
+                  key={channel.id}
+                  onClick={handleChannelPress(channel.id)}>
+                    {channel.name}
+                </Button>
+              );
           })
         }
-      </div>
+      </Container>
     );
   };
 
@@ -85,16 +120,24 @@ const Channels = (props) => {
       newChannel: () => {
         console.log('Channels::onSubmit::newChannel: ENTER');
         socket.emit('newChannel', { name: values.text }, (data) => {
-          console.log(`Channels::onSubmit::response: ${JSON.stringify(data)}`);
+          console.log(`Channels::onSubmit::newChannel::response: ${JSON.stringify(data)}`);
           dispatch(newChannel(data.data));
         });
+      },
+      rename: () => {
+        console.log('Channels::onSubmit::renameChannel: ENTER');
+        const info = { id: currentChannelId, name: values.text, removable: true };
+        socket.emit('renameChannel', info, (data) => {
+          console.log(`Channels::onSubmit::rename::response: ${JSON.stringify(data)}`);
+          dispatch(renameChannel(info));
+        })
       },
     };
     if (dispatcher[values.tag] !== undefined) {
       dispatcher[values.tag]();
     }
     dispatch(showAskNameModal({ question: '', isShown: false, tag: ''}));
-};
+  };
 
   const { askNameModal } = useSelector((state) => {
     console.log(`Channles::render: state=${JSON.stringify(state.channels)}`);
@@ -132,7 +175,7 @@ const Channels = (props) => {
                 name="text"
                 value={values.text || ''}
                 className="mb-2"
-                id="channelsModalMessage"
+                controlId="channelsModalMessage"
                 onChange={handleChange}
                 required/>
               <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.text === ""}>Submit</Button>

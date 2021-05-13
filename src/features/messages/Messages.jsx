@@ -64,7 +64,7 @@ const Messages = (props) => {
                 name="message"
                 value={values.message || ''}
                 className="mb-2"
-                id="messagesMessage"
+                controlId="messagesMessage"
                 onChange={handleChange}
                 required
                 placeholder="Message"/>
