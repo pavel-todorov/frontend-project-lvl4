@@ -8,6 +8,11 @@ export const channelsSlice = createSlice({
       question: '',
       tag: '',
     },
+    confirmModal: {
+      isShown: false,
+      question: '',
+      tag: '',
+    }
   },
   reducers: {
     showAskNameModal: (state, action) => {
@@ -17,9 +22,16 @@ export const channelsSlice = createSlice({
       state.askNameModal.isShown = isShown;
       state.askNameModal.tag = tag;
     },
+    showConfirmModal: (state, action) => {
+      console.log(`ChannelsSlice::showConfirmModal(${JSON.stringify(state)}, ${JSON.stringify(action.payload)}): ENTER`);
+      const { question, isShown, tag } = action.payload;
+      state.confirmModal.question = question;
+      state.confirmModal.isShown = isShown;
+      state.confirmModal.tag = tag;
+    }
   }
 });
 
-export const { showAskNameModal } = channelsSlice.actions
+export const { showAskNameModal, showConfirmModal } = channelsSlice.actions
 
 export default channelsSlice.reducer

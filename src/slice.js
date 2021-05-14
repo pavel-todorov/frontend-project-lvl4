@@ -48,7 +48,14 @@ export const appSlice = createSlice({
       const channel = action.payload;
       state.channels = state.channels.filter((item) => (item.id !== channel.id));
       state.channels = [...state.channels, channel];
-    }
+    },
+    removeChannel: (state, action) => {
+      console.log(`AppSlice::removeChannel: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`)
+      const channel = action.payload;
+      state.channels = state.channels.filter((item) => (item.id !== channel.id));
+      state.currentChannelId = state.channels[0].id;
+      state.messages = state.messages.filter((item) => (item.channelId != channel.id));
+    },
   },
 });
 
@@ -59,6 +66,7 @@ export const {
   newMessage,
   setCurrentChannel,
   newChannel,
-  renameChannel } = appSlice.actions
+  renameChannel,
+  removeChannel } = appSlice.actions
 
 export default appSlice.reducer

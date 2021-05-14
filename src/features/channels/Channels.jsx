@@ -4,8 +4,8 @@ import _ from 'lodash';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { channelsLoading, channelsReceived, setCurrentChannel, newChannel, renameChannel } from '../../slice.js'
-import { showAskNameModal } from './slice.js'
+import { channelsLoading, channelsReceived, setCurrentChannel, newChannel, renameChannel, removeChannel } from '../../slice.js'
+import { showAskNameModal, showConfirmModal } from './slice.js'
 import { Form, Row, Col, Modal, Button, FormControl, SplitButton, Dropdown, Container } from 'react-bootstrap';
 import { Formik } from 'formik';
 
@@ -59,7 +59,7 @@ const Channels = (props) => {
     const behaviorCase = e.toLowerCase();
     const behavior = {
       delete: () => {
-        //@todo
+        dispatch(showConfirmModal({ question: 'Do you really want to delete?', isShown: true, tag: behaviorCase }))
       },
       rename: () => {
         dispatch(showAskNameModal({ question: 'Enter new channel name', isShown: true, tag: behaviorCase }));
@@ -125,12 +125,21 @@ const Channels = (props) => {
         });
       },
       rename: () => {
-        console.log('Channels::onSubmit::renameChannel: ENTER');
+        console.log('Channels::onSubmit::rename: ENTER');
         const info = { id: currentChannelId, name: values.text, removable: true };
         socket.emit('renameChannel', info, (data) => {
           console.log(`Channels::onSubmit::rename::response: ${JSON.stringify(data)}`);
           dispatch(renameChannel(info));
-        })
+        });
+      },
+      delete: () => {
+        console.log('Channels::onSubmit::delete: ENTER');
+        const info = { id: currentChannelId };
+        socket.emit('removeChannel', info, (data) => {
+          console.log(`Channels::onSubmit::delete::response: ${JSON.stringify(data)}`);
+          dispatch(removeChannel(info));
+        });
+        dispatch(showConfirmModal({ question: '', isShown: false, tag: '' }));
       },
     };
     if (dispatcher[values.tag] !== undefined) {
@@ -139,7 +148,7 @@ const Channels = (props) => {
     dispatch(showAskNameModal({ question: '', isShown: false, tag: ''}));
   };
 
-  const { askNameModal } = useSelector((state) => {
+  const { askNameModal, confirmModal } = useSelector((state) => {
     console.log(`Channles::render: state=${JSON.stringify(state.channels)}`);
     return state.channels
   });
@@ -182,6 +191,24 @@ const Channels = (props) => {
             </Form>)}
           </Formik>
         </Modal.Body>
+      </Modal>
+      <Modal
+        show={confirmModal.isShown}
+        onHide={() => dispatch(showConfirmModal({ question: '', isShown: false, tag: '' }))}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title">
+          <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Confirm
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{confirmModal.question}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={() => onSubmit({ tag: confirmModal.tag })}>Yes</Button>
+          <Button variant="secondary" onClick={() => dispatch(showConfirmModal({ question: '', isShown: false, tag: '' }))}>No</Button>
+        </Modal.Footer>
       </Modal>
     </React.Fragment>
   );
