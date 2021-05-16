@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 
 class Header extends React.Component {
   renderHeader(isLoggedIn, i18nFunction) {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
       return null;
     }
     return (

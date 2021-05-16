@@ -25,6 +25,7 @@ const App  = () => {
   console.log(`App::render: authInfo=${JSON.stringify(authInfo)}`);
   if (authInfo === null) {
     history.push('/login');
+    dispatch(setLoggedState({ isLoggedIn: false }));
   } else if (!isLoggedIn) {
     dispatch(setLoggedState({ isLoggedIn: true }));
   }
