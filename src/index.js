@@ -41,7 +41,7 @@ const init = async () => initTranslations().then((i18nFunction) => {
     <Provider store={store}>
       <Router>
         <div className={"h-100"}>
-          <Header i18nFunction={i18nFunction}/>
+          <Header i18nFunction={i18nFunction} />
           <Switch>
             {renderApp()}
             <Route path="/login">

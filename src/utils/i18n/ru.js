@@ -10,6 +10,7 @@ const translation = {
   action_login: 'Войти',
   action_signin: 'Зарегистрироваться',
   action_send: 'Отправить',
+  action_logout: 'Выйти',
 
   help_login: 'От 3 до 20 символов',
   help_password: 'Не менее 6 символов',

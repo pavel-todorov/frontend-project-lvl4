@@ -1,14 +1,24 @@
 import React from 'react';
+import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch} from 'react-redux';
 import { Form, FormGroup, FormLabel, FormControl, Button, Modal, Row, Col } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { setModalState } from './slice.js';
+import { setLoggedState } from '../../slice.js';
 
 const Signup = (props) => {
   const history = useHistory()
+  const dispatch = useDispatch();
   const { i18nFunction } = props;
 
-const validationSchema = yup.object().shape({
+  const { showModal, modalMessage } = useSelector((state) => {
+    console.log(`Signup: ENTER with state ${JSON.stringify(state)}`);
+    return state.signup
+  });
+
+  const validationSchema = yup.object().shape({
     login: yup.string()
       .min(3, i18nFunction('help_login'))
       .max(20, i18nFunction('help_login'))
@@ -23,24 +33,24 @@ const validationSchema = yup.object().shape({
   });
 
   const onSubmit = async (values, { resetForm }) => {
-    // console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
+    console.log(`Signup::onSubmit: values = ${JSON.stringify(values)}`);
 
     let res;
     try {
       res = await axios({
-        url: '/api/v1/login',
+        url: '/api/v1/signup',
         method: 'post',
         data: { username: values.login, password: values.password },
       });
     } catch(err) {
-      // console.log(`Login failed. ${err}`);
+      console.log(`Signup failed. ${err}`);
       res = err.response;
     }
 
     console.log(`Request result: ${JSON.stringify(res)}`);
-    if (res.status !== 200) {
-      console.log(`Login failed, status = ${res.status}`);
-      dispatch(setModalState({ message: `Login failed, status = ${res.status}`, showModal: true }));
+    if (res.status !== 201) {
+      console.log(`Signup failed, status = ${res.status}`);
+      dispatch(setModalState({ message: `Signup failed, status = ${res.status}`, showModal: true }));
       return;
     }
 
@@ -49,6 +59,18 @@ const validationSchema = yup.object().shape({
     resetForm()
 
     history.push('/');
+  };
+
+  const renderModal = (showModal, modalMessage, setModalState) => {
+    console.log(`Login::renderModal(${showModal}, ${modalMessage})`);
+    const onHide = () => dispatch(setModalState({ showModal: false }));
+
+    return (
+      <Modal show={showModal} onHide={onHide}>
+        <Modal.Header closeButton>Info</Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+      </Modal>
+    );
   };
 
   return (
@@ -115,6 +137,7 @@ const validationSchema = yup.object().shape({
           </Formik>
         </Col>
       </Row>
+      {renderModal(showModal, modalMessage, setModalState)}
     </React.Fragment>
   );
 };
