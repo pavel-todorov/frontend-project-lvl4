@@ -1,5 +1,6 @@
 {
-  "name": "frontend_l4_chat_project",
+  "name": "@hexlet/code",
+  "module": "@hexlet/code",
   "version": "0.0.1",
   "description": "",
   "main": "server/index.js",
@@ -51,6 +52,8 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "regenerator-runtime": "^0.13.7",
+    "rollbar": "^2.21.1",
+    "rollbar-redux-middleware": "^0.2.0",
     "socket.io": "^4.0.1",
     "socket.io-client": "^4.0.1",
     "yup": "^0.32.9"

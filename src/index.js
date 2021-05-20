@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime.js';
 import '../assets/application.scss';
 
 import React from 'react';
+import Rollbar from 'rollbar';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
@@ -30,10 +31,19 @@ if (process.env.NODE_ENV !== 'production') {
 
 document.documentElement.lang = 'ru';
 
+var rollbar = new Rollbar({
+  accessToken: "5f7f509a3a4c46a5a39abde24982cd81",
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+});
+
 const init = async () => initTranslations().then((i18nFunction) => {
+  console.log('Application initialization started...');
+  rollbar.info('Application initialization started...');
+
   const renderApp = () => (
     <Route exact path="/">
-      <App i18nFunction={i18nFunction} />
+      <App i18nFunction={i18nFunction} rollbar={rollbar} />
     </Route>
   );
 
@@ -59,8 +69,10 @@ const init = async () => initTranslations().then((i18nFunction) => {
     </Provider>,
     document.querySelector('#chat'),
   );
+  rollbar.info('Application initialization finished.');
 }).catch((err) => {
   document.body.textContent = `Error while initializing page: ${err}`;
+  rollbar.critical(`Application initialization failed: ${err}`);
 });
 
 init().then(() => {});
