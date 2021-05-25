@@ -5,7 +5,6 @@ import '../assets/application.scss';
 
 import React from 'react';
 import Rollbar from 'rollbar';
-import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
 import { initTranslations } from './utils/i18n/translations.js';
@@ -45,8 +44,8 @@ const init = async (socket) => initTranslations().then((i18nFunction) => {
     </Route>
   );
 
-  render(
-    <Provider store={store}>
+  return (
+   <Provider store={store}>
       <Router>
         <div className={"h-100"}>
           <Header i18nFunction={i18nFunction} />
@@ -64,12 +63,11 @@ const init = async (socket) => initTranslations().then((i18nFunction) => {
           </Switch>
         </div>
       </Router>
-    </Provider>,
-    document.querySelector('#chat'),
+    </Provider>
   );
   // rollbar.info('Application initialization finished.');
 }).catch((err) => {
-  document.body.textContent = `Error while initializing page: ${err}`;
+  return (`Error while initializing page: ${err}`);
   // rollbar.critical(`Application initialization failed: ${err}`);
 });
 
