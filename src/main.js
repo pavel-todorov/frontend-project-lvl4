@@ -29,15 +29,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 document.documentElement.lang = 'ru';
 
-var rollbar = new Rollbar({
-  accessToken: "5f7f509a3a4c46a5a39abde24982cd81",
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-});
+// var rollbar = new Rollbar({
+//   accessToken: "5f7f509a3a4c46a5a39abde24982cd81",
+//   captureUncaught: true,
+//   captureUnhandledRejections: true,
+// });
 
 const init = async (socket) => initTranslations().then((i18nFunction) => {
   console.log('Application initialization started...');
-  rollbar.info('Application initialization started...');
+  // rollbar.info('Application initialization started...');
 
   const renderApp = () => (
     <Route exact path="/">
@@ -67,10 +67,10 @@ const init = async (socket) => initTranslations().then((i18nFunction) => {
     </Provider>,
     document.querySelector('#chat'),
   );
-  rollbar.info('Application initialization finished.');
+  // rollbar.info('Application initialization finished.');
 }).catch((err) => {
   document.body.textContent = `Error while initializing page: ${err}`;
-  rollbar.critical(`Application initialization failed: ${err}`);
+  // rollbar.critical(`Application initialization failed: ${err}`);
 });
 
 export default init;
