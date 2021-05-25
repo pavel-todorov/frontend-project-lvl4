@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { io } from 'socket.io-client';
-
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { Row, Col } from 'react-bootstrap';
@@ -10,11 +8,10 @@ import Messages from './features/messages/Messages';
 
 import { setLoggedState } from './slice';
 
-var socket = io();
-
-const App  = () => {
+const App  = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { socket } = props
 
   const { isLoggedIn, channels, messages, channelsLoadingState, currentChannelId } = useSelector((state) => {
     console.log(`App::render: state=${JSON.stringify(state.app)}`);
@@ -51,5 +48,4 @@ const App  = () => {
   );
 };
 
-// export default connect(mapStateToProps, actionCreators)(App);
 export default App;

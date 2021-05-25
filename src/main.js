@@ -35,13 +35,13 @@ var rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
-const init = async () => initTranslations().then((i18nFunction) => {
+const init = async (socket) => initTranslations().then((i18nFunction) => {
   console.log('Application initialization started...');
   rollbar.info('Application initialization started...');
 
   const renderApp = () => (
     <Route exact path="/">
-      <App i18nFunction={i18nFunction} rollbar={rollbar} />
+      <App i18nFunction={i18nFunction} rollbar={rollbar} socket={socket} />
     </Route>
   );
 
