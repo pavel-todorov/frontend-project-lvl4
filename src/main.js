@@ -41,7 +41,7 @@ const init = async (socket) => initTranslations().then((i18nFunction) => {
 
   const renderApp = () => (
     <Route exact path="/">
-      <App i18nFunction={i18nFunction} rollbar={rollbar} socket={socket} />
+      <App i18nFunction={i18nFunction} socket={socket} />
     </Route>
   );
 
