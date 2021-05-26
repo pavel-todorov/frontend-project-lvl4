@@ -1,5 +1,5 @@
 const translation = {
-  title_main: 'Hexlet-Chat',
+  title_main: 'Hexlet Chat',
   title_registration: 'Регистрация',
 
   request_nik: 'Ваш ник',
