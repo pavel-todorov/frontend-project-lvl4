@@ -90,11 +90,11 @@ const Login = (props) => {
               isSubmitting }) => (
                 <Form>
                   <FormGroup controlId="loginGroup">
-                    <FormLabel>{i18nFunction('request_login')}</FormLabel>
+                    <FormLabel>{i18nFunction('request_nik')}</FormLabel>
                     <FormControl
                       name="login"
                       type="text"
-                      placeholder={i18nFunction('request_login')}
+                      placeholder={i18nFunction('request_nik')}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.login} 
