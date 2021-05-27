@@ -103,7 +103,7 @@ const Signup = (props) => {
                       controlId="loginLogin"/>
                     <div style={{color: "red"}}>{errors.login}</div>
                   </FormGroup>
-                  <FormGroup>
+                  <FormGroup controlId="passwordGroup">
                     <FormLabel>{i18nFunction('request_password')}</FormLabel>
                     <FormControl
                       name="password"
