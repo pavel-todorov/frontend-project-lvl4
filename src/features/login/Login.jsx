@@ -31,9 +31,10 @@ const Login = (props) => {
       .required(),
   });
 
-  const onSubmit = async (values, { resetForm }) => {
+  const onSubmit = async (values, { resetForm, setStatus }) => {
     // console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
 
+    setStatus(undefined);
     let res;
     try {
       res = await axios({
@@ -49,7 +50,8 @@ const Login = (props) => {
     console.log(`Request result: ${JSON.stringify(res)}`);
     if (res.status !== 200) {
       console.log(`Login failed, status = ${res.status}`);
-      dispatch(setModalState({ message: i18nFunction('warn_bad_login_or_password'), showModal: true }));
+      setStatus(i18nFunction('warn_bad_login_or_password'));
+      // dispatch(setModalState({ message: i18nFunction('warn_bad_login_or_password'), showModal: true }));
       return;
     }
 
@@ -83,6 +85,7 @@ const Login = (props) => {
             onSubmit={onSubmit}>
             {({values,
               errors,
+              status,
               touched,
               handleChange,
               handleBlur,
@@ -111,9 +114,9 @@ const Login = (props) => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.password}
-                      isInvalid={touched.password && errors.password} 
+                      isInvalid={touched.password && errors.password && status} 
                       controlId="loginPassword"/>
-                    <div style={{color: "red"}}>{errors.password}</div>
+                    { status ? <div style={{color: "red"}}>{status}</div> : <div style={{color: "red"}}>{errors.password}</div> }
                   </FormGroup>
                   <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
                     {i18nFunction('action_login')}
