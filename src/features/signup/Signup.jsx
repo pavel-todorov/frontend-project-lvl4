@@ -91,11 +91,11 @@ const Signup = (props) => {
               isSubmitting }) => (
                 <Form>
                   <FormGroup controlId="loginGroup">
-                    <FormLabel>{i18nFunction('request_nik')}</FormLabel>
+                    <FormLabel>{i18nFunction('request_login')}</FormLabel>
                     <FormControl
                       name="login"
                       type="text"
-                      placeholder={i18nFunction('request_nik')}
+                      placeholder={i18nFunction('request_login')}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.login} 
