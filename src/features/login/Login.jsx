@@ -27,7 +27,7 @@ const Login = (props) => {
       .max(20, i18nFunction('help_login'))
       .required(),
     password: yup.string()
-      .min(5, i18nFunction('help_password'))
+      // .min(1, i18nFunction('help_password'))
       .required(),
   });
 
