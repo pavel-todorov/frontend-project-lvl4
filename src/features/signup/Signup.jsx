@@ -48,7 +48,7 @@ const Signup = (props) => {
     }
 
     console.log(`Request result: ${JSON.stringify(res)}`);
-    if (res.status !== 200) {
+    if (res.status !== 200 && res.status !== 201) {
       console.log(`Signup failed, status = ${res.status}`);
       dispatch(setModalState({ message: `Signup failed, status = ${res.status}`, showModal: true }));
       return;

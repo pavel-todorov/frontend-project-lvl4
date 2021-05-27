@@ -11,7 +11,7 @@ import { current } from '@reduxjs/toolkit';
 
 const Messages = (props) => {
   const dispatch = useDispatch();
-  const { socket, messages, currentChannelId } = props;
+  const { socket, messages, currentChannelId, i18nFunction } = props;
   const { isSending } = useSelector((state) => state.messages);
 
   console.log(`Messages: isSending=${isSending}, socket=${socket}`);
@@ -67,10 +67,11 @@ const Messages = (props) => {
                 controlId="messagesMessage"
                 onChange={handleChange}
                 required
-                placeholder="Message"/>
+                placeholder="Message"
+                data-testid="new-message"/>
             </Col>
             <Col sm="2" md="2" xl="2" lg="2">
-              <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.message === "" || isSending}>Send</Button>
+              <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.message === "" || isSending}>{i18nFunction('action_send')}</Button>
             </Col>
           </Form.Row>
         </Form>)}

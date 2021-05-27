@@ -48,7 +48,7 @@ const Login = (props) => {
     }
 
     console.log(`Request result: ${JSON.stringify(res)}`);
-    if (res.status !== 201) {
+    if (res.status !== 201 && res.status !== 200) {
       console.log(`Login failed, status = ${res.status}`);
       setStatus(i18nFunction('warn_bad_login_or_password'));
       // dispatch(setModalState({ message: i18nFunction('warn_bad_login_or_password'), showModal: true }));

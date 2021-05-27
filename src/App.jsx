@@ -11,7 +11,7 @@ import { setLoggedState } from './slice';
 const App  = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { socket } = props
+  const { socket, i18nFunction } = props
 
   const { isLoggedIn, channels, messages, channelsLoadingState, currentChannelId } = useSelector((state) => {
     console.log(`App::render: state=${JSON.stringify(state.app)}`);
@@ -35,13 +35,15 @@ const App  = (props) => {
               socket={socket}
               channels={channels}
               channelsLoadingState={channelsLoadingState}
-              currentChannelId={currentChannelId}/>
+              currentChannelId={currentChannelId}
+              i18nFunction={i18nFunction}/>
           </Col>
           <Col sm={9} md={9} lg={9} xl={9}>
             <Messages
               socket={socket}
               messages={messages.filter((message) => (message.channelId === currentChannelId))}
-              currentChannelId={currentChannelId}/>
+              currentChannelId={currentChannelId}
+              i18nFunction={i18nFunction}/>
           </Col>
         </Row>
     </React.Fragment>
