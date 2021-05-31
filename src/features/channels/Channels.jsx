@@ -159,7 +159,7 @@ const Channels = (props) => {
     <React.Fragment>
       <Row>
         <Col><h5>Channels</h5></Col>
-        <Col sm={1} md={1} lg={1} xl={1}><a className="link-secondary"  onClick={onAddChannel}>+</a></Col>
+        <Col sm={3} md={3} lg={3} xl={3}><Button variant="outline-primary" size="sm" onClick={onAddChannel}>+</Button></Col>
       </Row>
       {renderChannels(channels, currentChannelId)}
       <Modal
