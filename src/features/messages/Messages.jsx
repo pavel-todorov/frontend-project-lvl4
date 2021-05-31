@@ -34,13 +34,13 @@ const Messages = (props) => {
     console.log(`Messages::onSubmit(${JSON.stringify(values)})`);
     const authInfo = JSON.parse(window.localStorage.getItem('authInfo'));
     console.log(`Messages::onSubmit: authInfo=${JSON.stringify(authInfo)}`);
-    dispatch(messageSending());
+    // dispatch(messageSending());
     const newMessage = { message: values.message, channelId: currentChannelId, user: authInfo.username };
     console.log(`Messages::onSubmit: newMessage=${JSON.stringify(newMessage)}`);
     socket.emit('newMessage', newMessage, (data) => {
       console.log(`Messages::onSubmit::response: ${JSON.stringify(data)}`);
       resetForm({});
-      dispatch(messageSent());
+      // dispatch(messageSent());
    });
   };
 
