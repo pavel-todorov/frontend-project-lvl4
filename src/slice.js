@@ -34,9 +34,9 @@ export const appSlice = createSlice({
     newMessage: (state, action) => {
       console.log(`AppSlice::newMessage: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`);
       const message = { ...action.payload, channelId: state.currentChannelId };
-      if (state.messages.find((item) => (item.id === message.id))) {
-        return;
-      }
+      // if (state.messages.find((item) => (item.id === message.id))) {
+      //   return;
+      // }
       state.messages = [...state.messages, message]
     },
     newChannel: (state, action) => {
