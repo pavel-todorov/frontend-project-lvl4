@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 
 import Channels from './features/channels/Channels';
@@ -8,14 +8,15 @@ import Messages from './features/messages/Messages';
 
 import { setLoggedState } from './slice';
 
-const App  = (props) => {
+const App = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { socket, i18nFunction } = props
+  const { socket, i18nFunction } = props;
 
-  const { isLoggedIn, channels, messages, channelsLoadingState, currentChannelId } = useSelector((state) => {
+  const { isLoggedIn, channels, messages, channelsLoadingState, currentChannelId } = 
+    useSelector((state) => {
     console.log(`App::render: state=${JSON.stringify(state.app)}`);
-    return state.app
+    return state.app;
   });
 
   const authInfo = window.localStorage.getItem('authInfo');

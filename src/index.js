@@ -2,10 +2,10 @@
 import { io } from 'socket.io-client';
 import { render } from 'react-dom';
 
-import init from './main.js'
+import init from './main.js';
 
-var socket = io();
+const socket = io();
 
 init(socket).then((vdom) => {
-  render(vdom, document.querySelector('#chat'))
+  render(vdom, document.querySelector('#chat'));
 });

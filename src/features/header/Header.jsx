@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoggedState } from '../../slice.js';
 
-const Header  = (props) => {
+const Header = (props) => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => {
     console.log(`Header: ENTER with state ${JSON.stringify(state)}`);
-    return state.app
+    return state.app;
   });
 
   const onLogout = (e) => {
     e.preventDefault();
     console.log('Header::onLogout: ENTER');
-    const authInfo = window.localStorage.removeItem('authInfo');
+    // const authInfo = window.localStorage.removeItem('authInfo');
     dispatch(setLoggedState({ isLoggedIn: false }));
   };
 
-  const renderHeader = (isLoggedIn, i18nFunction) => {
-    if (!isLoggedIn) {
+  const renderHeader = (isUserLoggedIn, i18nFunction) => {
+    if (!isUserLoggedIn) {
       return null;
     }
     return (
@@ -31,7 +31,7 @@ const Header  = (props) => {
 
   const { i18nFunction } = props;
   return (
-    <React.Fragment>
+    <Fragment>
       <Row>
         <Col sm="9" lg="9" xs="9">
           <Link to="/"><b>{i18nFunction('title_main')}</b></Link>
@@ -39,8 +39,8 @@ const Header  = (props) => {
         {renderHeader(isLoggedIn, i18nFunction)}
       </Row>
       <hr />
-    </React.Fragment>
+    </Fragment>
   );
-}
+};
 
 export default Header;

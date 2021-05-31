@@ -1,5 +1,5 @@
-import Rollbar from "rollbar";
-import { createSlice } from '@reduxjs/toolkit'
+/* eslint no-param-reassign: ["off"] */
+import { createSlice } from '@reduxjs/toolkit';
 
 export const appSlice = createSlice({
   name: 'app',
@@ -22,7 +22,7 @@ export const appSlice = createSlice({
     channelsReceived: (state, action) => {
       console.log(`AppSlice::channelsReceived: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`);
       if (state.channelsLoadingState === 'pending') {
-        state.channelsLoadingState = 'done'
+        state.channelsLoadingState = 'done';
         state.channels = action.payload.channels;
         state.messages = action.payload.messages;
         state.currentChannelId = action.payload.currentChannelId;
@@ -38,7 +38,7 @@ export const appSlice = createSlice({
         state.messages = [...state.messages.filter((item) => (item.id !== message.id)), message];
         return;
       }
-      state.messages = [...state.messages, message]
+      state.messages = [...state.messages, message];
     },
     newChannel: (state, action) => {
       console.log(`AppSlice::newChannel: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`);
@@ -46,22 +46,22 @@ export const appSlice = createSlice({
       state.channels = [...state.channels, channel];
     },
     renameChannel: (state, action) => {
-      console.log(`AppSlice::renameChannel: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`)
+      console.log(`AppSlice::renameChannel: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`);
       const channel = action.payload;
       state.channels = state.channels.filter((item) => (item.id !== channel.id));
       state.channels = [...state.channels, channel];
     },
     removeChannel: (state, action) => {
-      console.log(`AppSlice::removeChannel: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`)
+      console.log(`AppSlice::removeChannel: ${JSON.stringify(state)} -> ${JSON.stringify(action)}`);
       const channel = action.payload;
       state.channels = state.channels.filter((item) => (item.id !== channel.id));
       state.currentChannelId = state.channels[0].id;
-      state.messages = state.messages.filter((item) => (item.channelId != channel.id));
+      state.messages = state.messages.filter((item) => (item.channelId !== channel.id));
     },
   },
 });
 
-export const { 
+export const {
   setLoggedState,
   channelsLoading,
   channelsReceived,
@@ -69,6 +69,7 @@ export const {
   setCurrentChannel,
   newChannel,
   renameChannel,
-  removeChannel } = appSlice.actions
+  removeChannel
+} = appSlice.actions;
 
-export default appSlice.reducer
+export default appSlice.reducer;

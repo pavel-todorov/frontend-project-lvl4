@@ -1,12 +1,17 @@
 import React from 'react';
 import axios from 'axios';
-import _ from 'lodash';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
-import { channelsLoading, channelsReceived, setCurrentChannel, newChannel, renameChannel, removeChannel } from '../../slice.js'
-import { showAskNameModal, showConfirmModal } from './slice.js'
-import { Form, Row, Col, Modal, Button, FormControl, SplitButton, Dropdown, Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import {
+  channelsLoading, channelsReceived, setCurrentChannel, newChannel, renameChannel, removeChannel
+} from '../../slice.js';
+import {
+  showAskNameModal, showConfirmModal
+} from './slice.js';
+import {
+  Form, Row, Col, Modal, Button, FormControl, SplitButton, Dropdown, Container
+} from 'react-bootstrap';
 import { Formik } from 'formik';
 
 const Channels = (props) => {

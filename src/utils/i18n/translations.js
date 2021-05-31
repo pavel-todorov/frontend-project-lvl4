@@ -4,7 +4,7 @@ import ruTranslation from './ru.js';
 
 const i18n = i18next.default || i18next;
 
-export let i18nextInstance;
+export var i18nextInstance;
 
 export const initTranslations = async () => {
   i18nextInstance = i18n.createInstance();

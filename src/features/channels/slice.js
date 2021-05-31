@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: ["off"] */
 import { createSlice } from '@reduxjs/toolkit';
 
 export const channelsSlice = createSlice({
@@ -12,7 +13,7 @@ export const channelsSlice = createSlice({
       isShown: false,
       question: '',
       tag: '',
-    }
+    },
   },
   reducers: {
     showAskNameModal: (state, action) => {
@@ -28,10 +29,10 @@ export const channelsSlice = createSlice({
       state.confirmModal.question = question;
       state.confirmModal.isShown = isShown;
       state.confirmModal.tag = tag;
-    }
-  }
+    },
+  },
 });
 
-export const { showAskNameModal, showConfirmModal } = channelsSlice.actions
+export const { showAskNameModal, showConfirmModal } = channelsSlice.actions;
 
-export default channelsSlice.reducer
+export default channelsSlice.reducer;

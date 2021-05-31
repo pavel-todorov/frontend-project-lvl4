@@ -1,6 +1,4 @@
 // @ts-check
-
-// TODO rewrite tests
 import buildApp from '../server/index.js';
 
 const buildUrl = (url) => `/api/v1/${url}`;

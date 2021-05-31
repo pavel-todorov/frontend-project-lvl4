@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch} from 'react-redux';
-import { Form, FormGroup, FormLabel, FormControl, Button, Modal, Row, Col } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  Form, FormGroup, FormLabel, FormControl, Button, Modal, Row, Col
+} from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { setModalState } from './slice.js';
 import { setLoggedState } from '../../slice.js';
 
 const Signup = (props) => {
-  const history = useHistory()
+  const history = useHistory();
   const dispatch = useDispatch();
   const { i18nFunction } = props;
 
   const { showModal, modalMessage } = useSelector((state) => {
     console.log(`Signup: ENTER with state ${JSON.stringify(state)}`);
-    return state.signup
+    return state.signup;
   });
 
   const validationSchema = yup.object().shape({
@@ -23,10 +25,10 @@ const Signup = (props) => {
       .min(3, i18nFunction('help_login'))
       .max(20, i18nFunction('help_login'))
       .required(),
-      password: yup.string()
+    password: yup.string()
       .min(6, i18nFunction('help_password'))
       .required(),
-      password2: yup.string()
+    password2: yup.string()
       .min(6, i18nFunction('help_password'))
       .required()
       .oneOf([yup.ref('password'), null], i18nFunction('warn_password_should_be_the_same')),
@@ -35,14 +37,14 @@ const Signup = (props) => {
   const onSubmit = async (values, { resetForm }) => {
     console.log(`Signup::onSubmit: values = ${JSON.stringify(values)}`);
 
-    let res;
+    var res;
     try {
       res = await axios({
         url: '/api/v1/signup',
         method: 'post',
         data: { username: values.login, password: values.password },
       });
-    } catch(err) {
+    } catch (err) {
       console.log(`Signup failed. ${err}`);
       res = err.response;
     }
@@ -56,33 +58,33 @@ const Signup = (props) => {
 
     window.localStorage.setItem('authInfo', JSON.stringify(res.data));
     dispatch(setLoggedState({ isLoggedIn: true }));
-    resetForm()
+    resetForm();
 
     history.push('/');
   };
 
-  const renderModal = (showModal, modalMessage, setModalState) => {
-    console.log(`Login::renderModal(${showModal}, ${modalMessage})`);
-    const onHide = () => dispatch(setModalState({ showModal: false }));
+  const renderModal = (isShowModal, theModalMessage, setModalStateMethod) => {
+    console.log(`Login::renderModal(${isShowModal}, ${theModalMessage})`);
+    const onHide = () => dispatch(setModalStateMethod({ showModal: false }));
 
     return (
-      <Modal show={showModal} onHide={onHide}>
+      <Modal show={isShowModal} onHide={onHide}>
         <Modal.Header closeButton>Info</Modal.Header>
-        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Body>{theModalMessage}</Modal.Body>
       </Modal>
     );
   };
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Row className="justify-content-md-center justify-content-xl-center justify-content-sm-center justify-content-lg-center">
         <Col md="4" sm="4" xl="4" lg="4">
           <h5>{i18nFunction('title_registration')}</h5>
-          <Formik 
-            initialValues={{ login:"", password:"", password2:""}}
+          <Formik
+            initialValues={{ login: '', password: '', password2: '' }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}>
-            {({values,
+            {({ values,
               errors,
               touched,
               handleChange,
@@ -100,8 +102,9 @@ const Signup = (props) => {
                       onBlur={handleBlur}
                       value={values.login} 
                       isInvalid={touched.login && errors.login} 
-                      controlId="loginLogin"/>
-                    <div style={{color: "red"}}>{errors.login}</div>
+                      controlId="loginLogin"
+                    />
+                    <div style={ {color: "red"} }>{errors.login}</div>
                   </FormGroup>
                   <FormGroup controlId="passwordGroup">
                     <FormLabel>{i18nFunction('request_password')}</FormLabel>
@@ -112,9 +115,10 @@ const Signup = (props) => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.password}
-                      isInvalid={touched.password && errors.password} 
-                      controlId="loginPassword"/>
-                    <div style={{color: "red"}}>{errors.password}</div>
+                      isInvalid={touched.password && errors.password}
+                      controlId="loginPassword"
+                    />
+                    <div style={ {color: 'red'} }>{errors.password}</div>
                   </FormGroup>
                   <FormGroup controlId="confirmPasswordGroup">
                     <FormLabel>{i18nFunction('request_confirm_password')}</FormLabel>
@@ -125,20 +129,22 @@ const Signup = (props) => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.password2}
-                      isInvalid={touched.password2 && errors.password2} 
-                      controlId="loginPassword2"/>
-                    <div style={{color: "red"}}>{errors.password2}</div>
+                      isInvalid={touched.password2 && errors.password2}
+                      controlId="loginPassword2"
+                    />
+                    <div style={{color: 'red'}}>{errors.password2}</div>
                   </FormGroup>
                   <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
                     {i18nFunction('action_signin')}
                   </Button>
                 </Form>
-              )}
+              )
+            }
           </Formik>
         </Col>
       </Row>
       {renderModal(showModal, modalMessage, setModalState)}
-    </React.Fragment>
+    </Fragment>
   );
 };
 

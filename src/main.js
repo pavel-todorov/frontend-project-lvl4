@@ -1,22 +1,22 @@
+/* eslint react/jsx-filename-extension: ["off"] */
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
 import React from 'react';
-import Rollbar from 'rollbar';
 import { Provider } from 'react-redux';
-
-import { initTranslations } from './utils/i18n/translations.js';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
-} from "react-router-dom";
+  Route,
+} from 'react-router-dom';
 
-import store from './store.js'
+import { initTranslations } from './utils/i18n/translations.js';
 
-import App from './App.jsx'
+import store from './store.js';
+
+import App from './App.jsx';
 import NotFound from './features/not-found/NotFound.jsx';
 import Header from './features/header/Header.jsx';
 import Login from './features/login/Login.jsx';
@@ -45,9 +45,9 @@ const init = async (socket) => initTranslations().then((i18nFunction) => {
   );
 
   return (
-   <Provider store={store}>
+    <Provider store={store}>
       <Router>
-        <div className={"h-100"}>
+        <div className='h-100'>
           <Header i18nFunction={i18nFunction} />
           <Switch>
             {renderApp()}

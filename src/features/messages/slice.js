@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+/* eslint no-param-reassign: ["off"] */
+import { createSlice } from '@reduxjs/toolkit';
 
 export const messagesSlice = createSlice({
   name: 'messages',
@@ -15,7 +16,7 @@ export const messagesSlice = createSlice({
       state.isSending = false;
     },
 
-  }
+  },
 });
 
 export const { messageSending, messageSent } = messagesSlice.actions;

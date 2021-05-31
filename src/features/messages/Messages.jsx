@@ -1,17 +1,18 @@
 import React from 'react';
-import { Form, Button, Col, FormControl } from 'react-bootstrap';
+import {
+  Form, Button, Col, FormControl
+} from 'react-bootstrap';
 import { Formik } from 'formik';
-import _ from 'lodash';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { messageSending, messageSent } from './slice.js'
-import { newMessage } from '../../slice.js'
-import { current } from '@reduxjs/toolkit';
+import { newMessage } from '../../slice.js';
 
 const Messages = (props) => {
   const dispatch = useDispatch();
-  const { socket, messages, currentChannelId, i18nFunction } = props;
+  const {
+    socket, messages, currentChannelId, i18nFunction
+  } = props;
   const { isSending } = useSelector((state) => state.messages);
 
   console.log(`Messages: isSending=${isSending}, socket=${socket}`);
@@ -21,21 +22,23 @@ const Messages = (props) => {
     dispatch(newMessage(data));
   });
 
-  const renderMessages = (messages) => {
-    return messages
-//      .filter((item) => (item.channelId == currentChannelId))
-      .map((item) => (
-        <div key={item.id}>
-          <b>{item.user}</b>: {item.message}
-        </div>));
-  };
+  const renderMessages = (theMessages) => theMessages
+    .map((item) => (
+      <div key={item.id}>
+        <b>{item.user}</b>
+        : {item.message}
+      </div>));
 
   const onSubmit = (values, { resetForm }) => {
     console.log(`Messages::onSubmit(${JSON.stringify(values)})`);
     const authInfo = JSON.parse(window.localStorage.getItem('authInfo'));
     console.log(`Messages::onSubmit: authInfo=${JSON.stringify(authInfo)}`);
     // dispatch(messageSending());
-    const newMessage = { message: values.message, channelId: currentChannelId, user: authInfo.username };
+    const newMessage = {
+      message: values.message,
+      channelId: currentChannelId,
+      user: authInfo.username,
+    };
     console.log(`Messages::onSubmit: newMessage=${JSON.stringify(newMessage)}`);
     socket.emit('newMessage', newMessage, (data) => {
       console.log(`Messages::onSubmit::response: ${JSON.stringify(data)}`);

@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+/* eslint no-param-reassign: ["off"] */
+import { createSlice } from '@reduxjs/toolkit';
 
 export const signupSlice = createSlice({
   name: 'signup',
@@ -15,6 +16,6 @@ export const signupSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setModalState } = signupSlice.actions
+export const { setModalState } = signupSlice.actions;
 
-export default signupSlice.reducer
+export default signupSlice.reducer;
