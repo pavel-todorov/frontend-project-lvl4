@@ -12,7 +12,7 @@ import { Formik } from 'formik';
 const Channels = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { channels, channelsLoadingState, currentChannelId, socket } = props;
+  const { channels, channelsLoadingState, currentChannelId, socket, i18nFunction } = props;
   console.log(`Channels: channels=${JSON.stringify(channels)}, loading=${channelsLoadingState}, currentChannelId=${currentChannelId}`);
   const authInfoString = window.localStorage.getItem('authInfo');
   if (authInfoString === null) {
@@ -183,11 +183,12 @@ const Channels = (props) => {
               <FormControl
                 name="text"
                 value={values.text || ''}
+                data-testid="add-channel"
                 className="mb-2"
                 controlId="channelsModalMessage"
                 onChange={handleChange}
                 required/>
-              <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.text === ""}>Submit</Button>
+              <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.text === ""}>{i18nFunction('action_send')}</Button>
             </Form>)}
           </Formik>
         </Modal.Body>
