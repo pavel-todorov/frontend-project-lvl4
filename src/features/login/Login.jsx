@@ -2,6 +2,7 @@
 /* eslint no-var: ["off"] */
 /* eslint functional/no-let: ["off"] */
 /* eslint react/jsx-closing-bracket-location: ["off"] */
+/* eslint object-curly-spacing: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
@@ -95,41 +96,41 @@ const Login = (props) => {
               handleChange,
               handleBlur,
               handleSubmit,
-              isSubmitting
+              isSubmitting,
             }) => (
-                <Form>
-                  <FormGroup controlId="loginGroup">
-                    <FormLabel>{i18nFunction('request_nik')}</FormLabel>
-                    <FormControl
-                      name="login"
-                      type="text"
-                      placeholder={i18nFunction('request_nik')}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.login}
-                      isInvalid={touched.login && errors.login}
-                      controlId="loginLogin"
-                    />
-                    <div style={{ color: 'red' }}>{errors.login}</div>
-                  </FormGroup>
-                  <FormGroup controlId="passwordGroup">
-                    <FormLabel>{i18nFunction('request_password')}</FormLabel>
-                    <FormControl
-                      name="password"
-                      type="password"
-                      placeholder={i18nFunction('request_password')}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                      isInvalid={touched.password && errors.password && status}
-                      controlId="loginPassword"/>
-                    { status ? <div style={{color: 'red'}}>{status}</div> : <div style={{color: 'red'}}>{errors.password}</div> }
-                  </FormGroup>
-                  <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
-                    {i18nFunction('action_login')}
-                  </Button>
-                </Form>
-              )}
+              <Form>
+                <FormGroup controlId="loginGroup">
+                  <FormLabel>{i18nFunction('request_nik')}</FormLabel>
+                  <FormControl
+                    name="login"
+                    type="text"
+                    placeholder={i18nFunction('request_nik')}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.login}
+                    isInvalid={touched.login && errors.login}
+                    controlId="loginLogin"
+                  />
+                  <div style={{ color: 'red' }}>{errors.login}</div>
+                </FormGroup>
+                <FormGroup controlId="passwordGroup">
+                  <FormLabel>{i18nFunction('request_password')}</FormLabel>
+                  <FormControl
+                    name="password"
+                    type="password"
+                    placeholder={i18nFunction('request_password')}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                    isInvalid={touched.password && errors.password && status}
+                    controlId="loginPassword" />
+                  { status ? <div style={{color: 'red'}}>{status}</div> : <div style={{color: 'red'}}>{errors.password}</div> }
+                </FormGroup>
+                <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
+                  {i18nFunction('action_login')}
+                </Button>
+              </Form>
+            )}
           </Formik>
           <br />
           <Link to="/signup">{i18nFunction('title_registration')}</Link>

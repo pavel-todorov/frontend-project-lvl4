@@ -56,7 +56,7 @@ const Messages = (props) => {
   return (
     <React.Fragment>
       <h5>Messages</h5>
-      <div style={{backgroundColor: "lightgray"}} className="h-75">
+      <div style={{ backgroundColor: 'lightgray' }} className="h-75">
         {renderMessages(messages)}
       </div>
       <hr />

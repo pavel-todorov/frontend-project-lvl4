@@ -89,14 +89,14 @@ const Signup = (props) => {
             validationSchema={validationSchema}
             onSubmit={onSubmit}>
             {
-              ({ 
+              ({
                 values,
                 errors,
                 touched,
                 handleChange,
                 handleBlur,
                 handleSubmit,
-                isSubmitting 
+                isSubmitting,
               }) => (
                 <Form>
                   <FormGroup controlId="loginGroup">
@@ -110,7 +110,7 @@ const Signup = (props) => {
                       value={values.login}
                       isInvalid={touched.login && errors.login}
                       controlId="loginLogin"/>
-                    <div style={ {color: "red"} }>{errors.login}</div>
+                    <div style={{ color: 'red' }}>{errors.login}</div>
                   </FormGroup>
                   <FormGroup controlId="passwordGroup">
                     <FormLabel>{i18nFunction('request_password')}</FormLabel>
@@ -124,7 +124,7 @@ const Signup = (props) => {
                       isInvalid={touched.password && errors.password}
                       controlId="loginPassword"
                     />
-                    <div style={ {color: 'red'} }>{errors.password}</div>
+                    <div style={{ color: 'red' }}>{errors.password}</div>
                   </FormGroup>
                   <FormGroup controlId="confirmPasswordGroup">
                     <FormLabel>{i18nFunction('request_confirm_password')}</FormLabel>
@@ -138,13 +138,14 @@ const Signup = (props) => {
                       isInvalid={touched.password2 && errors.password2}
                       controlId="loginPassword2"
                     />
-                    <div style={{color: 'red'}}>{errors.password2}</div>
+                    <div style={{ color: 'red' }}>{errors.password2}</div>
                   </FormGroup>
                   <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
                     {i18nFunction('action_signin')}
                   </Button>
                 </Form>
-              )}
+              )
+            }
           </Formik>
         </Col>
       </Row>

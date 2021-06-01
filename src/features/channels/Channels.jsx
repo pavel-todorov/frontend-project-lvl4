@@ -2,6 +2,7 @@
 /* eslint no-var: ["off"] */
 /* eslint consistent-return: ["off"] */
 /* eslint react/jsx-closing-bracket-location: ["off"] */
+/* eslint react/jsx-wrap-multilines: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 
@@ -96,7 +97,7 @@ const Channels = (props) => {
             if (channel.id === theCurrentChannelId) {
               return (
                 <SplitButton
-                  style={ { width: '100%', margin: '10px 0px'} }
+                  style={{ width: '100%', margin: '10px 0px'}}
                   key={channel.id}
                   variant="primary"
                   title={channel.name}
@@ -188,19 +189,19 @@ const Channels = (props) => {
             {({
               values,
               handleChange,
-              handleSubmit
+              handleSubmit,
             }) => (
-            <Form>
-              <FormControl
-                name="text"
-                value={values.text || ''}
-                data-testid="add-channel"
-                className="mb-2"
-                controlId="channelsModalMessage"
-                onChange={handleChange}
-                required />
-              <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.text === ''}>{i18nFunction('action_send')}</Button>
-            </Form>)}
+              <Form>
+                <FormControl
+                  name="text"
+                  value={values.text || ''}
+                  data-testid="add-channel"
+                  className="mb-2"
+                  controlId="channelsModalMessage"
+                  onChange={handleChange}
+                  required />
+                <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.text === ''}>{i18nFunction('action_send')}</Button>
+              </Form>)}
           </Formik>
         </Modal.Body>
       </Modal>
