@@ -9,7 +9,7 @@
     "node": ">= 14"
   },
   "scripts": {
-    "test": "echo 'no tests for this project'",
+    "test": "jest ./src/** --passWithNoTests",
     "prebuild": "rm -rf dist",
     "build": "NODE_ENV=production npx webpack --mode production",
     "start": "node bin/slack.js"
@@ -76,6 +76,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^27.0.3",
     "mini-css-extract-plugin": "^1.4.1",
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.7",
