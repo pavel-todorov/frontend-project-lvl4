@@ -109,7 +109,7 @@ const Signup = (props) => {
                       onBlur={handleBlur}
                       value={values.login}
                       isInvalid={touched.login && errors.login}
-                      controlId="loginLogin"/>
+                      controlId="loginLogin" />
                     <div style={{ color: 'red' }}>{errors.login}</div>
                   </FormGroup>
                   <FormGroup controlId="passwordGroup">

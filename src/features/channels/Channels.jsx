@@ -97,7 +97,7 @@ const Channels = (props) => {
             if (channel.id === theCurrentChannelId) {
               return (
                 <SplitButton
-                  style={{ width: '100%', margin: '10px 0px'}}
+                  style={{ width: '100%', margin: '10px 0px' }}
                   key={channel.id}
                   variant="primary"
                   title={channel.name}
