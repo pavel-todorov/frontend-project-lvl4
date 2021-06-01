@@ -1,0 +1,21 @@
+env:
+  browser: true
+  es2021: true
+  jest: true
+extends:
+  - airbnb-base
+parserOptions: 
+  ecmaVersion: 12
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+ignorePatterns: 
+  - webpack.config.js
+  - src/libs/**
+  - dist/**
+plugins: ["functional", "jest", "react"]
+rules:
+  import/extensions: ["off"]
+  no-console: ["off"]
+  no-unused-vars: ["off"]
+  import/no-unresolved: ["off"]
