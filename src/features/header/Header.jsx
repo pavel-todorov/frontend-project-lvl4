@@ -1,3 +1,4 @@
+/* eslint react/jsx-fragments: ["off"] */
 import React, { Fragment } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -14,7 +15,7 @@ const Header = (props) => {
   const onLogout = (e) => {
     e.preventDefault();
     console.log('Header::onLogout: ENTER');
-    // const authInfo = window.localStorage.removeItem('authInfo');
+    window.localStorage.removeItem('authInfo');
     dispatch(setLoggedState({ isLoggedIn: false }));
   };
 

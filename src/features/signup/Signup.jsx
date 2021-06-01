@@ -1,9 +1,11 @@
+/* eslint react/jsx-fragments: ["off"] */
+/* eslint react/jsx-wrap-multilines: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Form, FormGroup, FormLabel, FormControl, Button, Modal, Row, Col
+  Form, FormGroup, FormLabel, FormControl, Button, Modal, Row, Col,
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -35,9 +37,9 @@ const Signup = (props) => {
   });
 
   const onSubmit = async (values, { resetForm }) => {
+    var res;
     console.log(`Signup::onSubmit: values = ${JSON.stringify(values)}`);
 
-    var res;
     try {
       res = await axios({
         url: '/api/v1/signup',

@@ -1,6 +1,8 @@
+/* eslint react/jsx-fragments: ["off"] */
+/* eslint react/jsx-wrap-multilines: ["off"] */
 import React from 'react';
 import {
-  Form, Button, Col, FormControl
+  Form, Button, Col, FormControl,
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 
@@ -11,7 +13,7 @@ import { newMessage } from '../../slice.js';
 const Messages = (props) => {
   const dispatch = useDispatch();
   const {
-    socket, messages, currentChannelId, i18nFunction
+    socket, messages, currentChannelId, i18nFunction,
   } = props;
   const { isSending } = useSelector((state) => state.messages);
 
@@ -24,7 +26,9 @@ const Messages = (props) => {
 
   const renderMessages = (theMessages) => theMessages
     .map((item) => (
-      <div key={item.id}>
+      <div
+        key={item.id}
+      >
         <b>{item.user}</b>
         : {item.message}
       </div>));
@@ -44,7 +48,7 @@ const Messages = (props) => {
       console.log(`Messages::onSubmit::response: ${JSON.stringify(data)}`);
       resetForm({});
       // dispatch(messageSent());
-   });
+    });
   };
 
   return (
@@ -54,8 +58,8 @@ const Messages = (props) => {
         {renderMessages(messages)}
       </div>
       <hr />
-      <Formik 
-        initialValues={{ message:"" }}
+      <Formik
+        initialValues={{ message: '' }}
         onSubmit={onSubmit}>
         {({ values,
           handleChange,

@@ -47,7 +47,7 @@ const init = async (socket) => initTranslations().then((i18nFunction) => {
   return (
     <Provider store={store}>
       <Router>
-        <div className='h-100'>
+        <div className="h-100">
           <Header i18nFunction={i18nFunction} />
           <Switch>
             {renderApp()}
@@ -66,9 +66,6 @@ const init = async (socket) => initTranslations().then((i18nFunction) => {
     </Provider>
   );
   // rollbar.info('Application initialization finished.');
-}).catch((err) => {
-  return (`Error while initializing page: ${err}`);
-  // rollbar.critical(`Application initialization failed: ${err}`);
-});
+}).catch((err) => (`Error while initializing page: ${err}`));
 
 export default init;

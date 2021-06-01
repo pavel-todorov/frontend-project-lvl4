@@ -69,7 +69,7 @@ export const {
   setCurrentChannel,
   newChannel,
   renameChannel,
-  removeChannel
+  removeChannel,
 } = appSlice.actions;
 
 export default appSlice.reducer;

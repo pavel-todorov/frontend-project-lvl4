@@ -1,8 +1,9 @@
+/* eslint react/jsx-fragments: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
 import {
-  Form, FormGroup, FormLabel, FormControl, Button, Modal, Row, Col
+  Form, FormGroup, FormLabel, FormControl, Button, Modal, Row, Col,
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { Link, useHistory } from 'react-router-dom';
@@ -33,10 +34,10 @@ const Login = (props) => {
   });
 
   const onSubmit = async (values, { resetForm, setStatus }) => {
+    let res;
     // console.log(`Login::onSubmit: values = ${JSON.stringify(values)}`);
 
     setStatus(undefined);
-    var res;
     try {
       res = await axios({
         url: '/api/v1/login',
@@ -82,8 +83,7 @@ const Login = (props) => {
           <Formik
             initialValues={{ login: '', password: '' }}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
+            onSubmit={onSubmit}>
             { ({ values,
               errors,
               status,
@@ -105,7 +105,7 @@ const Login = (props) => {
                       isInvalid={touched.login && errors.login}
                       controlId="loginLogin"
                     />
-                    <div style={ {color: "red"} }>{errors.login}</div>
+                    <div style={{ color: 'red' }}>{errors.login}</div>
                   </FormGroup>
                   <FormGroup controlId="passwordGroup">
                     <FormLabel>{i18nFunction('request_password')}</FormLabel>
@@ -117,9 +117,9 @@ const Login = (props) => {
                       onBlur={handleBlur}
                       value={values.password}
                       isInvalid={touched.password && errors.password && status}
-                      controlId='loginPassword'
+                      controlId="loginPassword"
                     />
-                    { status ? <div style={{color: "red"}}>{status}</div> : <div style={{color: "red"}}>{errors.password}</div> }
+                    { status ? <div style={{color: 'red'}}>{status}</div> : <div style={{color: 'red'}}>{errors.password}</div> }
                   </FormGroup>
                   <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
                     {i18nFunction('action_login')}

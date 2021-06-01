@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
@@ -13,8 +13,10 @@ const App = (props) => {
   const dispatch = useDispatch();
   const { socket, i18nFunction } = props;
 
-  const { isLoggedIn, channels, messages, channelsLoadingState, currentChannelId } = 
-    useSelector((state) => {
+  const {
+    isLoggedIn, channels, messages, channelsLoadingState, currentChannelId
+  } 
+  = useSelector((state) => {
     console.log(`App::render: state=${JSON.stringify(state.app)}`);
     return state.app;
   });
@@ -23,31 +25,31 @@ const App = (props) => {
   console.log(`App::render: authInfo=${JSON.stringify(authInfo)}`);
   if (authInfo === null) {
     history.push('/login');
-    dispatch(setLoggedState({ isLoggedIn: true }));
+    dispatch(setLoggedState({ isLoggedIn: false }));
   } else if (!isLoggedIn) {
     dispatch(setLoggedState({ isLoggedIn: true }));
   }
 
   return (
-    <React.Fragment>
-        <Row className={"h-100"}>
+    <Fragment>
+        <Row className='h-100'>
           <Col sm={3} md={3} lg={3} xl={3}>
             <Channels 
               socket={socket}
               channels={channels}
               channelsLoadingState={channelsLoadingState}
               currentChannelId={currentChannelId}
-              i18nFunction={i18nFunction}/>
+              i18nFunction={i18nFunction} />
           </Col>
           <Col sm={9} md={9} lg={9} xl={9}>
             <Messages
               socket={socket}
               messages={messages.filter((message) => (message.channelId === currentChannelId))}
               currentChannelId={currentChannelId}
-              i18nFunction={i18nFunction}/>
+              i18nFunction={i18nFunction} />
           </Col>
         </Row>
-    </React.Fragment>
+    </Fragment>
   );
 };
 
