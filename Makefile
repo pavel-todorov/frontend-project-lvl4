@@ -28,6 +28,6 @@ test:
 	npm test -s
 
 coverage:
-	npx jest --coverage
+	npx jest ./src/** --coverage --passWithNoTests
 
 .PHONY: test
