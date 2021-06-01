@@ -1,6 +1,6 @@
 /* eslint react/jsx-fragments: ["off"] */
 /* eslint no-var: ["off"] */
-/* eslint no-let: ["off"] */
+/* eslint functional/no-let: ["off"] */
 /* eslint react/jsx-closing-bracket-location: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
@@ -87,14 +87,16 @@ const Login = (props) => {
             initialValues={{ login: '', password: '' }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}>
-            { ({ values,
+            {({
+              values,
               errors,
               status,
               touched,
               handleChange,
               handleBlur,
               handleSubmit,
-              isSubmitting }) => (
+              isSubmitting
+            }) => (
                 <Form>
                   <FormGroup controlId="loginGroup">
                     <FormLabel>{i18nFunction('request_nik')}</FormLabel>

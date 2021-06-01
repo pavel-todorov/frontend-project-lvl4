@@ -1,7 +1,7 @@
 /* eslint react/jsx-fragments: ["off"] */
 /* eslint no-var: ["off"] */
-/* eslint no-let: ["off"] */
 /* eslint consistent-return: ["off"] */
+/* eslint react/jsx-closing-bracket-location: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 
@@ -96,12 +96,12 @@ const Channels = (props) => {
             if (channel.id === theCurrentChannelId) {
               return (
                 <SplitButton
-                  style={{ width: '100%', margin: '10px 0px'}}
+                  style={ { width: '100%', margin: '10px 0px'} }
                   key={channel.id}
                   variant="primary"
                   title={channel.name}
                   onSelect={handleDropdownSelect(channel.id)}>
-                    {channel.removable ? (<Dropdown.Item key="1" eventKey="Delete" >Delete</Dropdown.Item>) : null}
+                  {channel.removable ? (<Dropdown.Item key="1" eventKey="Delete">Delete</Dropdown.Item>) : null}
                   <Dropdown.Item key="2" eventKey="Rename">Rename</Dropdown.Item>
                 </SplitButton>
               );
@@ -112,7 +112,7 @@ const Channels = (props) => {
                 variant="light"
                 key={channel.id}
                 onClick={handleChannelPress(channel.id)}>
-                  {channel.name}
+                {channel.name}
               </Button>
             );
           })
@@ -158,7 +158,7 @@ const Channels = (props) => {
     if (dispatcher[values.tag] !== undefined) {
       dispatcher[values.tag]();
     }
-    dispatch(showAskNameModal({ question: '', isShown: false, tag: ''}));
+    dispatch(showAskNameModal({ question: '', isShown: false, tag: '' }));
   };
 
   // console.log(`Channels: authInfo="${authInfoString}"`);
@@ -185,9 +185,11 @@ const Channels = (props) => {
           <Formik
             initialValues={{ text: '', tag: askNameModal.tag }}
             onSubmit={onSubmit}>
-            {({ values,
+            {({
+              values,
               handleChange,
-              handleSubmit }) => (
+              handleSubmit
+            }) => (
             <Form>
               <FormControl
                 name="text"
@@ -205,10 +207,10 @@ const Channels = (props) => {
       <Modal
         show={confirmModal.isShown}
         onHide={() => dispatch(showConfirmModal({ question: '', isShown: false, tag: '' }))}
-        dialogClassName='modal-90w'
-        aria-labelledby='example-custom-modal-styling-title'>
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title">
         <Modal.Header closeButton>
-          <Modal.Title id='example-custom-modal-styling-title'>
+          <Modal.Title id="example-custom-modal-styling-title">
             Confirm
           </Modal.Title>
         </Modal.Header>

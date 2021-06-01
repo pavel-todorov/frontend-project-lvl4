@@ -1,7 +1,6 @@
 /* eslint react/jsx-fragments: ["off"] */
 /* eslint react/jsx-wrap-multilines: ["off"] */
 /* eslint no-var: ["off"] */
-/* eslint no-let: ["off"] */
 /* eslint react/jsx-closing-bracket-location: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
@@ -89,13 +88,16 @@ const Signup = (props) => {
             initialValues={{ login: '', password: '', password2: '' }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}>
-            {({ values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting }) => (
+            {
+              ({ 
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting 
+              }) => (
                 <Form>
                   <FormGroup controlId="loginGroup">
                     <FormLabel>{i18nFunction('request_login')}</FormLabel>

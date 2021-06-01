@@ -31,7 +31,7 @@ const Messages = (props) => {
         key={item.id}
       >
         <b>{item.user}</b>
-        : 
+        :
         {item.message}
       </div>));
 
@@ -56,7 +56,7 @@ const Messages = (props) => {
   return (
     <React.Fragment>
       <h5>Messages</h5>
-      <div style={ {backgroundColor: "lightgray"} } className="h-75">
+      <div style={{backgroundColor: "lightgray"}} className="h-75">
         {renderMessages(messages)}
       </div>
       <hr />
@@ -68,24 +68,24 @@ const Messages = (props) => {
           handleChange,
           handleSubmit,
         }) => (
-        <Form>
-          <Form.Row>
-            <Col sm="9" md="9" xl="9" lg="9">
-              <FormControl
-                name="message"
-                value={values.message || ''}
-                className="mb-2"
-                controlId="messagesMessage"
-                onChange={handleChange}
-                required
-                placeholder="Message"
-                data-testid="new-message"/>
-            </Col>
-            <Col sm="3" md="3" xl="3" lg="3">
-              <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={isSending}>{i18nFunction('action_send')}</Button>
-            </Col>
-          </Form.Row>
-        </Form>)}
+          <Form>
+            <Form.Row>
+              <Col sm="9" md="9" xl="9" lg="9">
+                <FormControl
+                  name="message"
+                  value={values.message || ''}
+                  className="mb-2"
+                  controlId="messagesMessage"
+                  onChange={handleChange}
+                  required
+                  placeholder="Message"
+                  data-testid="new-message" />
+              </Col>
+              <Col sm="3" md="3" xl="3" lg="3">
+                <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={isSending}>{i18nFunction('action_send')}</Button>
+              </Col>
+            </Form.Row>
+          </Form>)}
       </Formik>
     </React.Fragment>
   );

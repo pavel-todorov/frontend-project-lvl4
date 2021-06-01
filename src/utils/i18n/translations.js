@@ -1,4 +1,3 @@
-/* eslint no-let: ["off"] */
 /* eslint no-var: ["off"] */
 /* eslint import/no-mutable-exports: ["off"] */
 import i18next from 'i18next';
