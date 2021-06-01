@@ -1,4 +1,6 @@
 [![Github Actions Status](https://github.com/hexlet-components/projects-frontend-l4-server/workflows/Node%20CI/badge.svg)](https://github.com/hexlet-components/projects-frontend-l4-server/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/25cb7526dd82c3dfd389/maintainability)](https://codeclimate.com/github/pavel-todorov/frontend-project-lvl4/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/25cb7526dd82c3dfd389/test_coverage)](https://codeclimate.com/github/pavel-todorov/frontend-project-lvl4/test_coverage)
 
 ## Requirements
 
@@ -16,3 +18,6 @@ $ make install
 $ make start
 # open http://localhost:5000
 ```
+
+## Demo
+https://calm-stream-68807.herokuapp.com/
