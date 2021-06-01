@@ -1,5 +1,8 @@
 /* eslint react/jsx-fragments: ["off"] */
 /* eslint react/jsx-wrap-multilines: ["off"] */
+/* eslint no-var: ["off"] */
+/* eslint no-let: ["off"] */
+/* eslint react/jsx-closing-bracket-location: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -102,10 +105,9 @@ const Signup = (props) => {
                       placeholder={i18nFunction('request_login')}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.login} 
-                      isInvalid={touched.login && errors.login} 
-                      controlId="loginLogin"
-                    />
+                      value={values.login}
+                      isInvalid={touched.login && errors.login}
+                      controlId="loginLogin"/>
                     <div style={ {color: "red"} }>{errors.login}</div>
                   </FormGroup>
                   <FormGroup controlId="passwordGroup">
@@ -140,8 +142,7 @@ const Signup = (props) => {
                     {i18nFunction('action_signin')}
                   </Button>
                 </Form>
-              )
-            }
+              )}
           </Formik>
         </Col>
       </Row>

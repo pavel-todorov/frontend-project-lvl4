@@ -1,5 +1,5 @@
-/* eslint functional/no-let: ["off"] */
-/* eslint functional/no-var: ["off"] */
+/* eslint no-let: ["off"] */
+/* eslint no-var: ["off"] */
 /* eslint import/no-mutable-exports: ["off"] */
 import i18next from 'i18next';
 import ruTranslation from './ru.js';

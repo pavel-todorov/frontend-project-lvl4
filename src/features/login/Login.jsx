@@ -1,4 +1,7 @@
 /* eslint react/jsx-fragments: ["off"] */
+/* eslint no-var: ["off"] */
+/* eslint no-let: ["off"] */
+/* eslint react/jsx-closing-bracket-location: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
@@ -117,15 +120,14 @@ const Login = (props) => {
                       onBlur={handleBlur}
                       value={values.password}
                       isInvalid={touched.password && errors.password && status}
-                      controlId="loginPassword"
-                    />
+                      controlId="loginPassword"/>
                     { status ? <div style={{color: 'red'}}>{status}</div> : <div style={{color: 'red'}}>{errors.password}</div> }
                   </FormGroup>
                   <Button variant="primary" type="submit" disabled={isSubmitting} onClick={handleSubmit}>
                     {i18nFunction('action_login')}
                   </Button>
                 </Form>
-              ) }
+              )}
           </Formik>
           <br />
           <Link to="/signup">{i18nFunction('title_registration')}</Link>
@@ -133,8 +135,8 @@ const Login = (props) => {
       </Row>
       {renderModal(showModal, modalMessage, setModalState)}
     </Fragment>
-  ); 
-}
+  );
+};
 
 // export default connect(mapStateToProps, actionCreators)(Login);
 export default Login;

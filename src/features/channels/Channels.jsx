@@ -1,3 +1,7 @@
+/* eslint react/jsx-fragments: ["off"] */
+/* eslint no-var: ["off"] */
+/* eslint no-let: ["off"] */
+/* eslint consistent-return: ["off"] */
 import React, { Fragment } from 'react';
 import axios from 'axios';
 
@@ -17,6 +21,10 @@ import {
 const Channels = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { askNameModal, confirmModal } = useSelector((state) => {
+    console.log(`Channles::render: state=${JSON.stringify(state.channels)}`);
+    return state.channels;
+  });
   const {
     channels, channelsLoadingState, currentChannelId, socket, i18nFunction,
   } = props;
@@ -29,6 +37,7 @@ const Channels = (props) => {
   const { token } = JSON.parse(authInfoString);
 
   const fetchChannels = async (theToken, dispatchMethod) => {
+    var channelsRequestResult;
     dispatchMethod(channelsLoading());
     const dataString = window.localStorage.getItem('channels');
     if (dataString !== null) {
@@ -36,7 +45,6 @@ const Channels = (props) => {
       dispatchMethod(channelsReceived(data));
       return;
     }
-    var channelsRequestResult;
     try {
       channelsRequestResult = await axios({
         url: '/api/v1/data',
@@ -94,7 +102,7 @@ const Channels = (props) => {
                   title={channel.name}
                   onSelect={handleDropdownSelect(channel.id)}>
                     {channel.removable ? (<Dropdown.Item key="1" eventKey="Delete" >Delete</Dropdown.Item>) : null}
-                    <Dropdown.Item key="2" eventKey="Rename">Rename</Dropdown.Item>
+                  <Dropdown.Item key="2" eventKey="Rename">Rename</Dropdown.Item>
                 </SplitButton>
               );
             }
@@ -153,10 +161,6 @@ const Channels = (props) => {
     dispatch(showAskNameModal({ question: '', isShown: false, tag: ''}));
   };
 
-  const { askNameModal, confirmModal } = useSelector((state) => {
-    console.log(`Channles::render: state=${JSON.stringify(state.channels)}`);
-    return state.channels;
-  });
   // console.log(`Channels: authInfo="${authInfoString}"`);
   fetchChannels(token, dispatch);
 
@@ -186,14 +190,14 @@ const Channels = (props) => {
               handleSubmit }) => (
             <Form>
               <FormControl
-                name='text'
+                name="text"
                 value={values.text || ''}
-                data-testid='add-channel'
-                className='mb-2'
-                controlId='channelsModalMessage'
+                data-testid="add-channel"
+                className="mb-2"
+                controlId="channelsModalMessage"
                 onChange={handleChange}
                 required />
-              <Button type='submit' className='mb-2' onClick={handleSubmit} disabled={values.text === ''}>{i18nFunction('action_send')}</Button>
+              <Button type="submit" className="mb-2" onClick={handleSubmit} disabled={values.text === ''}>{i18nFunction('action_send')}</Button>
             </Form>)}
           </Formik>
         </Modal.Body>

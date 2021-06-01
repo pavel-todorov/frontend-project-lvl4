@@ -1,5 +1,6 @@
 /* eslint react/jsx-fragments: ["off"] */
 /* eslint react/jsx-wrap-multilines: ["off"] */
+/* eslint react/jsx-closing-bracket-location: ["off"] */
 import React from 'react';
 import {
   Form, Button, Col, FormControl,
@@ -30,7 +31,8 @@ const Messages = (props) => {
         key={item.id}
       >
         <b>{item.user}</b>
-        : {item.message}
+        : 
+        {item.message}
       </div>));
 
   const onSubmit = (values, { resetForm }) => {
@@ -38,13 +40,13 @@ const Messages = (props) => {
     const authInfo = JSON.parse(window.localStorage.getItem('authInfo'));
     console.log(`Messages::onSubmit: authInfo=${JSON.stringify(authInfo)}`);
     // dispatch(messageSending());
-    const newMessage = {
+    const theNewMessage = {
       message: values.message,
       channelId: currentChannelId,
       user: authInfo.username,
     };
-    console.log(`Messages::onSubmit: newMessage=${JSON.stringify(newMessage)}`);
-    socket.emit('newMessage', newMessage, (data) => {
+    console.log(`Messages::onSubmit: newMessage=${JSON.stringify(theNewMessage)}`);
+    socket.emit('newMessage', theNewMessage, (data) => {
       console.log(`Messages::onSubmit::response: ${JSON.stringify(data)}`);
       resetForm({});
       // dispatch(messageSent());
@@ -54,16 +56,18 @@ const Messages = (props) => {
   return (
     <React.Fragment>
       <h5>Messages</h5>
-      <div style={{backgroundColor: "lightgray"}} className={"h-75"}>
+      <div style={ {backgroundColor: "lightgray"} } className="h-75">
         {renderMessages(messages)}
       </div>
       <hr />
       <Formik
         initialValues={{ message: '' }}
         onSubmit={onSubmit}>
-        {({ values,
+        {({
+          values,
           handleChange,
-          handleSubmit }) => (
+          handleSubmit,
+        }) => (
         <Form>
           <Form.Row>
             <Col sm="9" md="9" xl="9" lg="9">
